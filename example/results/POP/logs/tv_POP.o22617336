@@ -1,0 +1,7 @@
+=== Building canonical merged VCF + TreeTime VCF for POP ===
+  Variants: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/variants
+  Canonical: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/aln/POP.merged.vcf.gz
+  TreeTime:  /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/aln/POP.treetime.vcf.gz
+  Repeats:   /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.repeats.bed (excluded)
+  Missing:   drop snp/mnp sites with frac '-' >= 0.80
+WARNING: no completed isolates in /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/variants. Skipping POP.

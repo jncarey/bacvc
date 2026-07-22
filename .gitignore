@@ -1,5 +1,5 @@
 # Pipeline outputs — never committed (can be 100+ GB of per-patient data)
-results/
+/results/
 
 # Host-specific input symlinks — replace with your own (see README "Setup")
 data/allreads

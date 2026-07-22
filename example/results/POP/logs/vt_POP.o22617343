@@ -1,0 +1,26 @@
+=== Generating variant tables for POP ===
+  Reference: POP_autocycler
+  Canonical: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/aln/POP.merged.vcf.gz
+  Output:    /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/pop_tables
+  [1/2] bcftools norm -m- | snpEff ann...
+  [2/2] generating tables...
+Population: POP
+Canonical VCF: /tmp/22617343.1.feder-short.q/vt-POP-BT77MP/POP.biallelic.annot.vcf
+Loading GFF: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.gff
+  Loaded 5827 locus tags from GFF
+Reading genotypes/TYPE/annotation from canonical VCF...
+  Total unique variants: 56
+Found 4 isolates in POP.biallelic.annot.vcf
+  PR isolates: 2, PO isolates: 2
+  Variants with at least one ALT call: 53 / 56
+  Wrote all variants: var.annot.tab (53 variants)
+  SNPs: 40
+  Wrote SNPs/MNPs: snp.gt.tab + snp.annot.tab (40 variants)
+  INDELs: 13
+  Wrote INDELs: indel.gt.tab + indel.annot.tab (13 variants)
+Filtering disruptive variants...
+  Disruptive variants: 9
+  Wrote disruptive variants: disruptive.annot.tab (9 variants)
+Done!
+=== Done: POP ===
+

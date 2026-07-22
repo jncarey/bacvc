@@ -1,0 +1,62 @@
+##fileformat=VCFv4.2
+##FILTER=<ID=PASS,Description="All filters passed">
+##fileDate=20260722
+##source=freeBayes v1.3.6
+##reference=/net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa
+##contig=<ID=contig_1,length=6444197>
+##phasing=none
+##commandline="freebayes -p 2 -P 0 -C 2 -F 0.05 --min-coverage 10 --min-repeat-entropy 1.0 -q 13 -m 60 --strict-vcf -f /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/variants/POPpoB4A8/POPpoB4A8.bam"
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Total read depth at the locus">
+##INFO=<ID=RO,Number=1,Type=Integer,Description="Count of full observations of the reference haplotype.">
+##INFO=<ID=AO,Number=A,Type=Integer,Description="Count of full observations of this alternate haplotype.">
+##INFO=<ID=QR,Number=1,Type=Integer,Description="Reference allele quality sum in phred">
+##INFO=<ID=QA,Number=A,Type=Integer,Description="Alternate allele quality sum in phred">
+##INFO=<ID=AB,Number=A,Type=Float,Description="Allele balance at heterozygous sites: a number between 0 and 1 representing the ratio of reads showing the reference allele to all reads, considering only reads from individuals called as heterozygous">
+##INFO=<ID=TYPE,Number=A,Type=String,Description="The type of allele, either snp, mnp, ins, del, or complex.">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GL,Number=G,Type=Float,Description="Genotype Likelihood, log10-scaled likelihoods of the data given the called genotype for each possible genotype generated from the reference and alternate alleles given the sample ploidy">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read Depth">
+##FORMAT=<ID=RO,Number=1,Type=Integer,Description="Reference allele observation count">
+##FORMAT=<ID=QR,Number=1,Type=Integer,Description="Sum of quality of the reference observations">
+##FORMAT=<ID=AO,Number=A,Type=Integer,Description="Alternate allele observation count">
+##FORMAT=<ID=QA,Number=A,Type=Integer,Description="Sum of quality of the alternate observations">
+##bcftools_viewVersion=1.21+htslib-1.21
+##bcftools_viewCommand=view --include QUAL>=100 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/variants/POPpoB4A8/snps.raw.vcf; Date=Wed Jul 22 10:29:50 2026
+##bcftools_annotateVersion=1.21+htslib-1.21
+##bcftools_annotateCommand=annotate --remove ^INFO/TYPE,^INFO/DP,^INFO/RO,^INFO/AO,^INFO/AB,^FORMAT/GT,^FORMAT/DP,^FORMAT/RO,^FORMAT/AO,^FORMAT/QR,^FORMAT/QA,^FORMAT/GL; Date=Wed Jul 22 10:29:50 2026
+##SnpEffVersion="5.0e (build 2021-03-09 06:01), by Pablo Cingolani"
+##SnpEffCmd="SnpEff  -noStats -no-downstream -no-upstream -no-utr POP_autocycler "
+##INFO=<ID=ANN,Number=.,Type=String,Description="Functional annotations: 'Allele | Annotation | Annotation_Impact | Gene_Name | Gene_ID | Feature_Type | Feature_ID | Transcript_BioType | Rank | HGVS.c | HGVS.p | cDNA.pos / cDNA.length | CDS.pos / CDS.length | AA.pos / AA.length | Distance | ERRORS / WARNINGS / INFO' ">
+##INFO=<ID=LOF,Number=.,Type=String,Description="Predicted loss of function effects for this variant. Format: 'Gene_Name | Gene_ID | Number_of_transcripts_in_gene | Percent_of_transcripts_affected'">
+##INFO=<ID=NMD,Number=.,Type=String,Description="Predicted nonsense mediated decay effects for this variant. Format: 'Gene_Name | Gene_ID | Number_of_transcripts_in_gene | Percent_of_transcripts_affected'">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	POPpoB4A8
+contig_1	9748	.	C	T	1159.3	.	AB=0;AO=39;DP=39;QA=1326;QR=0;RO=0;TYPE=snp;ANN=T|missense_variant|MODERATE|PA0007|GENE_PA0007|transcript|TRANSCRIPT_PA0007|protein_coding|1/1|c.1469C>T|p.Ala490Val|1469/1617|1469/1617|490/538||	GT:DP:RO:QR:AO:QA:GL	1/1:39:0:0:39:1326:-119.642,-11.7402,0
+contig_1	13783	.	TG	T	1314.49	.	AB=0.892857;AO=50;DP=56;QA=1676;QR=201;RO=6;TYPE=del;ANN=T|frameshift_variant|HIGH|PA0011|GENE_PA0011|transcript|TRANSCRIPT_PA0011|protein_coding|1/1|c.34delG|p.Ala12fs|34/888|34/888|12/295||INFO_REALIGN_3_PRIME	GT:DP:RO:QR:AO:QA:GL	0/1:56:6:201:50:1676:-134.271,0,-1.56183
+contig_1	16008	.	C	T	1360.39	.	AB=0;AO=47;DP=49;QA=1590;QR=60;RO=2;TYPE=snp;ANN=T|missense_variant|MODERATE|PA0014|GENE_PA0014|transcript|TRANSCRIPT_PA0014|protein_coding|1/1|c.124G>A|p.Ala42Thr|124/273|124/273|42/90||	GT:DP:RO:QR:AO:QA:GL	1/1:49:2:60:47:1590:-137.694,-9.05167,0
+contig_1	26980	.	C	T	1112.15	.	AB=0;AO=40;DP=43;QA=1352;QR=102;RO=3;TYPE=snp;ANN=T|missense_variant|MODERATE|PA0025|GENE_PA0025|transcript|TRANSCRIPT_PA0025|protein_coding|1/1|c.746C>T|p.Ala249Val|746/825|746/825|249/274||	GT:DP:RO:QR:AO:QA:GL	1/1:43:3:102:40:1352:-112.463,-3.42734,0
+contig_1	40872	.	A	G	124.154	.	AB=0.636364;AO=7;DP=11;QA=238;QR=136;RO=4;TYPE=snp;ANN=G|synonymous_variant|LOW|PA0040|GENE_PA0040|transcript|TRANSCRIPT_PA0040|protein_coding|1/1|c.237A>G|p.Glu79Glu|237/1689|237/1689|79/562||	GT:DP:RO:QR:AO:QA:GL	0/1:11:4:136:7:238:-18.4417,0,-9.26464
+contig_1	40889	.	A	G	126.132	.	AB=0.7;AO=7;DP=10;QA=238;QR=94;RO=3;TYPE=snp;ANN=G|missense_variant|MODERATE|PA0040|GENE_PA0040|transcript|TRANSCRIPT_PA0040|protein_coding|1/1|c.254A>G|p.Asp85Gly|254/1689|254/1689|85/562||	GT:DP:RO:QR:AO:QA:GL	0/1:10:3:94:7:238:-18.7427,0,-5.76084
+contig_1	55401	.	AG	A	2379.55	.	AB=0;AO=80;DP=80;QA=2696;QR=0;RO=0;TYPE=del;ANN=A|intergenic_region|MODIFIER|POP_autocycler_00043-POP_autocycler_00044|GENE_POP_autocycler_00043-GENE_POP_autocycler_00044|intergenic_region|GENE_POP_autocycler_00043-GENE_POP_autocycler_00044|||n.55402delG||||||	GT:DP:RO:QR:AO:QA:GL	1/1:80:0:0:80:2696:-242.782,-24.0824,0
+contig_1	71345	.	C	T	876.917	.	AB=0;AO=32;DP=34;QA=1080;QR=68;RO=2;TYPE=snp;ANN=T|synonymous_variant|LOW|PA0055|GENE_PA0055|transcript|TRANSCRIPT_PA0055|protein_coding|1/1|c.135G>A|p.Arg45Arg|135/507|135/507|45/168||	GT:DP:RO:QR:AO:QA:GL	1/1:34:2:68:32:1080:-91.0489,-3.77709,0
+contig_1	73283	.	C	T	741.003	.	AB=0.903226;AO=28;DP=31;QA=952;QR=102;RO=3;TYPE=snp;ANN=T|synonymous_variant|LOW|PA0057|GENE_PA0057|transcript|TRANSCRIPT_PA0057|protein_coding|1/1|c.711C>T|p.Gly237Gly|711/888|711/888|237/295||	GT:DP:RO:QR:AO:QA:GL	0/1:31:3:102:28:952:-76.6605,0,-0.185021
+contig_1	78779	.	CG	C	952.197	.	AB=0;AO=34;DP=36;QA=1148;QR=68;RO=2;TYPE=del;ANN=C|frameshift_variant|HIGH|PA0065|GENE_PA0065|transcript|TRANSCRIPT_PA0065|protein_coding|1/1|c.161delC|p.Pro54fs|161/666|161/666|54/221||;LOF=(PA0065|GENE_PA0065|1|1.00)	GT:DP:RO:QR:AO:QA:GL	1/1:36:2:68:34:1148:-97.1413,-4.40659,0
+contig_1	80874	.	T	C	893.525	.	AB=0;AO=31;DP=32;QA=1048;QR=34;RO=1;TYPE=snp;ANN=C|missense_variant|MODERATE|PA0067|GENE_PA0067|transcript|TRANSCRIPT_PA0067|protein_coding|1/1|c.1322T>C|p.Val441Ala|1322/2046|1322/2046|441/681||	GT:DP:RO:QR:AO:QA:GL	1/1:32:1:34:31:1048:-91.2294,-6.23405,0
+contig_1	101736	.	AG	A	593.098	.	AB=0.857143;AO=24;DP=28;QA=816;QR=136;RO=4;TYPE=del;ANN=A|frameshift_variant|HIGH|PA0082|GENE_PA0082|transcript|TRANSCRIPT_PA0082|protein_coding|1/1|c.782delG|p.Gly261fs|782/1035|782/1035|261/344||INFO_REALIGN_3_PRIME;LOF=(PA0082|GENE_PA0082|1|1.00)	GT:DP:RO:QR:AO:QA:GL	0/1:28:4:136:24:816:-65.3275,0,-4.14713
+contig_1	113316	.	C	T	1169.27	.	AB=0;AO=42;DP=45;QA=1428;QR=102;RO=3;TYPE=snp;ANN=T|missense_variant|MODERATE|PA0091|GENE_PA0091|transcript|TRANSCRIPT_PA0091|protein_coding|1/1|c.1513C>T|p.Arg505Cys|1513/1941|1513/1941|505/646||	GT:DP:RO:QR:AO:QA:GL	1/1:45:3:102:42:1428:-119.302,-4.0294,0
+contig_1	166501	.	C	T	1068.21	.	AB=0;AO=37;DP=38;QA=1242;QR=34;RO=1;TYPE=snp;ANN=T|intergenic_region|MODIFIER|PA0145-PA0146|GENE_PA0145-GENE_PA0146|intergenic_region|GENE_PA0145-GENE_PA0146|||n.166501C>T||||||	GT:DP:RO:QR:AO:QA:GL	1/1:38:1:34:37:1242:-108.682,-8.04023,0
+contig_1	176094	.	G	A	1663.42	.	AB=0;AO=56;DP=56;QA=1882;QR=0;RO=0;TYPE=snp;ANN=A|missense_variant|MODERATE|PA0154|GENE_PA0154|transcript|TRANSCRIPT_PA0154|protein_coding|1/1|c.8G>A|p.Arg3His|8/606|8/606|3/201||	GT:DP:RO:QR:AO:QA:GL	1/1:56:0:0:56:1882:-169.663,-16.8577,0
+contig_1	203299	.	A	G	887.276	.	AB=0;AO=30;DP=30;QA=1012;QR=0;RO=0;TYPE=snp;ANN=G|missense_variant|MODERATE|PA0178|GENE_PA0178|transcript|TRANSCRIPT_PA0178|protein_coding|1/1|c.1364T>C|p.Leu455Pro|1364/1929|1364/1929|455/642||	GT:DP:RO:QR:AO:QA:GL	1/1:30:0:0:30:1012:-91.3886,-9.0309,0
+contig_1	215744	.	C	T	803.225	.	AB=0;AO=29;DP=31;QA=978;QR=68;RO=2;TYPE=snp;ANN=T|missense_variant|MODERATE|PA0188|GENE_PA0188|transcript|TRANSCRIPT_PA0188|protein_coding|1/1|c.518C>T|p.Pro173Leu|518/882|518/882|173/293||	GT:DP:RO:QR:AO:QA:GL	1/1:31:2:68:29:978:-81.8716,-2.874,0
+contig_1	245993	.	A	G	795.585	.	AB=0;AO=29;DP=31;QA=978;QR=68;RO=2;TYPE=snp;ANN=G|missense_variant|MODERATE|PA0222|GENE_PA0222|transcript|TRANSCRIPT_PA0222|protein_coding|1/1|c.200A>G|p.Tyr67Cys|200/1059|200/1059|67/352||	GT:DP:RO:QR:AO:QA:GL	1/1:31:2:68:29:978:-81.8716,-2.874,0
+contig_1	250617	.	C	T	653.639	.	AB=0;AO=23;DP=23;QA=782;QR=0;RO=0;TYPE=snp;ANN=T|synonymous_variant|LOW|PA0227|GENE_PA0227|transcript|TRANSCRIPT_PA0227|protein_coding|1/1|c.273C>T|p.Gly91Gly|273/783|273/783|91/260||	GT:DP:RO:QR:AO:QA:GL	1/1:23:0:0:23:782:-70.6973,-6.92369,0
+contig_1	265050	.	GGC	G	1521.58	.	AB=0;AO=57;DP=62;QA=1930;QR=170;RO=5;TYPE=del;ANN=G|frameshift_variant|HIGH|PA0240|GENE_PA0240|transcript|TRANSCRIPT_PA0240|protein_coding|1/1|c.787_788delGC|p.Ala263fs|788/1251|787/1251|263/416||;LOF=(PA0240|GENE_PA0240|1|1.00)	GT:DP:RO:QR:AO:QA:GL	1/1:62:5:170:57:1930:-158.348,-3.02887,0
+contig_1	316948	.	A	G	1395.46	.	AB=0;AO=47;DP=47;QA=1590;QR=0;RO=0;TYPE=snp;ANN=G|intergenic_region|MODIFIER|PA0295-PA0296|GENE_PA0295-GENE_PA0296|intergenic_region|GENE_PA0295-GENE_PA0296|||n.316948A>G||||||	GT:DP:RO:QR:AO:QA:GL	1/1:47:0:0:47:1590:-143.393,-14.1484,0
+contig_1	319645	.	A	G	1606.49	.	AB=0;AO=59;DP=64;QA=2006;QR=170;RO=5;TYPE=snp;ANN=G|synonymous_variant|LOW|PA0298|GENE_PA0298|transcript|TRANSCRIPT_PA0298|protein_coding|1/1|c.42A>G|p.Glu14Glu|42/1359|42/1359|14/452||	GT:DP:RO:QR:AO:QA:GL	1/1:64:5:170:59:2006:-165.187,-3.63093,0
+contig_1	329616	.	C	T	1407.21	.	AB=0;AO=50;DP=51;QA=1620;QR=34;RO=1;TYPE=snp;ANN=T|synonymous_variant|LOW|PA0305|GENE_PA0305|transcript|TRANSCRIPT_PA0305|protein_coding|1/1|c.1152G>A|p.Lys384Lys|1152/2388|1152/2388|384/795||	GT:DP:RO:QR:AO:QA:GL	1/1:51:1:34:50:1620:-142.684,-11.9536,0
+contig_1	333654	.	CG	C	804.054	.	AB=0;AO=29;DP=33;QA=986;QR=68;RO=2;TYPE=del;ANN=C|frameshift_variant|HIGH|PA0308|GENE_PA0308|transcript|TRANSCRIPT_PA0308|protein_coding|1/1|c.457delG|p.Ala153fs|457/942|457/942|153/313||INFO_REALIGN_3_PRIME;LOF=(PA0308|GENE_PA0308|1|1.00)	GT:DP:RO:QR:AO:QA:GL	1/1:33:2:68:29:986:-82.6109,-3.19391,0
+contig_1	335140	.	C	T	1865.68	.	AB=0;AO=63;DP=63;QA=2110;QR=0;RO=0;TYPE=snp;ANN=T|synonymous_variant|LOW|PA0310|GENE_PA0310|transcript|TRANSCRIPT_PA0310|protein_coding|1/1|c.105C>T|p.Thr35Thr|105/630|105/630|35/209||	GT:DP:RO:QR:AO:QA:GL	1/1:63:0:0:63:2110:-190.176,-18.9649,0
+contig_1	349790	.	A	G	1336.71	.	AB=0;AO=46;DP=47;QA=1548;QR=34;RO=1;TYPE=snp;ANN=G|missense_variant|MODERATE|PA0325|GENE_PA0325|transcript|TRANSCRIPT_PA0325|protein_coding|1/1|c.395T>C|p.Val132Ala|395/930|395/930|132/309||	GT:DP:RO:QR:AO:QA:GL	1/1:47:1:34:46:1548:-136.214,-10.7495,0
+contig_1	360145	.	C	T	1637.48	.	AB=0;AO=56;DP=57;QA=1896;QR=34;RO=1;TYPE=snp;ANN=T|missense_variant|MODERATE|PA0333|GENE_PA0333|transcript|TRANSCRIPT_PA0333|protein_coding|1/1|c.1046C>T|p.Ala349Val|1046/1272|1046/1272|349/423||	GT:DP:RO:QR:AO:QA:GL	1/1:57:1:34:56:1896:-167.525,-13.7598,0
+contig_1	362484	.	A	G	377.864	.	AB=0;AO=15;DP=16;QA=469;QR=34;RO=1;TYPE=snp;ANN=G|missense_variant|MODERATE|PA0335|GENE_PA0335|transcript|TRANSCRIPT_PA0335|protein_coding|1/1|c.269T>C|p.Leu90Pro|269/654|269/654|90/217||	GT:DP:RO:QR:AO:QA:GL	1/1:16:1:34:15:469:-39.1131,-1.41757,0
+contig_1	376889	.	C	T	1281.13	.	AB=0;AO=43;DP=43;QA=1454;QR=0;RO=0;TYPE=snp;ANN=T|missense_variant|MODERATE|PA0348|GENE_PA0348|transcript|TRANSCRIPT_PA0348|protein_coding|1/1|c.935C>T|p.Ala312Val|935/1095|935/1095|312/364||	GT:DP:RO:QR:AO:QA:GL	1/1:43:0:0:43:1454:-131.157,-12.9443,0
+contig_1	376973	.	G	A	1188.48	.	AB=0;AO=40;DP=40;QA=1352;QR=0;RO=0;TYPE=snp;ANN=A|missense_variant|MODERATE|PA0348|GENE_PA0348|transcript|TRANSCRIPT_PA0348|protein_coding|1/1|c.1019G>A|p.Arg340His|1019/1095|1019/1095|340/364||	GT:DP:RO:QR:AO:QA:GL	1/1:40:0:0:40:1352:-121.98,-12.0412,0

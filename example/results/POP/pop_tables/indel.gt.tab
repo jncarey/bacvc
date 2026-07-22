@@ -1,0 +1,14 @@
+CHR	POS	TYPE	REF	ALT	POPpoB1G7	POPpoB4A8	POPprB1E8	POPprB2D2
+contig_1	14330	del	GCC	G	1	0	0	0
+contig_1	51475	del	CG	C	1	0	0	0
+contig_1	55401	del	AG	A	1	1	0	0
+contig_1	78779	del	CG	C	0	1	0	0
+contig_1	101736	del	AG	A	1	-	0	0
+contig_1	124860	del	GAT	G	0	0	1	0
+contig_1	189736	ins	C	CG	1	0	0	0
+contig_1	237707	ins	C	CG	1	0	0	0
+contig_1	265050	del	GGC	G	0	1	0	0
+contig_1	286703	ins	G	GGGC	0	0	1	0
+contig_1	318684	del	GA	G	1	0	0	0
+contig_1	333654	del	CG	C	1	1	0	0
+contig_1	340666	del	CG	C	1	0	0	0

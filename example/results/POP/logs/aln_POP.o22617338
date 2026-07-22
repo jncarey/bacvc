@@ -1,0 +1,4 @@
+=== Generating SNP alignment for POP ===
+  Input:  /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/pop_tables/snp.gt.tab
+  Output: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/aln/POP.snps.aln.fa
+WARNING: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/pop_tables/snp.gt.tab not found. Skipping POP.

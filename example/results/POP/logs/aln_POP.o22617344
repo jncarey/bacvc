@@ -1,0 +1,6 @@
+=== Generating SNP alignment for POP ===
+  Input:  /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/pop_tables/snp.gt.tab
+  Output: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/aln/POP.snps.aln.fa
+[POP] Wrote /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/aln/POP.snps.aln.fa (4 isolates × 40 bp from 40 sites)
+=== Done: POP ===
+

@@ -1,0 +1,132 @@
+Read1 before filtering:
+total reads: 65679
+total bases: 9917529
+Q20 bases: 9539338(96.1866%)
+Q30 bases: 9234948(93.1174%)
+Q40 bases: 0(0%)
+
+Read2 before filtering:
+total reads: 65679
+total bases: 9917529
+Q20 bases: 9541697(96.2104%)
+Q30 bases: 9198154(92.7464%)
+Q40 bases: 0(0%)
+
+Read1 after filtering:
+total reads: 63508
+total bases: 9043919
+Q20 bases: 8788420(97.1749%)
+Q30 bases: 8540000(94.4281%)
+Q40 bases: 0(0%)
+
+Read2 after filtering:
+total reads: 63508
+total bases: 9043919
+Q20 bases: 8758847(96.8479%)
+Q30 bases: 8457278(93.5134%)
+Q40 bases: 0(0%)
+
+Filtering result:
+reads passed filter: 127016
+reads failed due to low quality: 2650
+reads failed due to too many N: 4
+reads failed due to too short: 1688
+reads with adapter trimmed: 27694
+bases trimmed due to adapters: 1278208
+
+Duplication rate: 10.8376%
+
+Insert size peak (evaluated by paired-end reads): 208
+
+JSON report: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7.fastp.json
+HTML report: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7.fastp.html
+
+fastp --in1 /net/feder/vol1/project/pseudomonas_selection/vc/data/allreads/POPpost/POPpoB1G7_1.fastq.gz --in2 /net/feder/vol1/project/pseudomonas_selection/vc/data/allreads/POPpost/POPpoB1G7_2.fastq.gz --out1 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7_R1.trimmed.fastq.gz --out2 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7_R2.trimmed.fastq.gz --length_required 50 --json /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7.fastp.json --html /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7.fastp.html --thread 1 
+fastp v1.0.1, time used: 2 seconds
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 70402 sequences (10000038 bp)...
+[M::process] read 56614 sequences (8087800 bp)...
+[samclip] samclip 0.4.0 by Torsten Seemann (@torstenseemann)
+[samclip] Loading: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa.fai
+[samclip] Found 1 sequences in /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa.fai
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (1, 33762, 5, 0)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (160, 226, 314)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 622)
+[M::mem_pestat] mean and std.dev: (242.44, 115.98)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 776)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_process_seqs] Processed 70402 reads in 2.783 CPU sec, 2.661 real sec
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (0, 27182, 6, 1)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (164, 232, 321)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 635)
+[M::mem_pestat] mean and std.dev: (248.31, 117.14)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 792)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_process_seqs] Processed 56614 reads in 2.315 CPU sec, 2.287 real sec
+[samclip] Processed 100000 records...
+[main] Version: 0.7.18-r1243-dirty
+[main] CMD: bwa mem -t 1[samclip] Total SAM records 127153, removed 2308, allowed 1111, passed 124845
+ -R[samclip] Header contained 4 lines
+ @RG\tID:POPpoB1G7\tSM:POPpoB1G7 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa[samclip] Done.
+ /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7_R1.trimmed.fastq.gz /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7_R2.trimmed.fastq.gz
+[main] Real time: 5.256 sec; CPU: 5.235 sec
+COMMAND: samtools markdup -r -s - -
+READ: 124845
+WRITTEN: 102994
+EXCLUDED: 459
+EXAMINED: 124386
+PAIRED: 122332
+SINGLE: 2054
+DUPLICATE PAIR: 20928
+DUPLICATE SINGLE: 923
+DUPLICATE PAIR OPTICAL: 0
+DUPLICATE SINGLE OPTICAL: 0
+DUPLICATE NON PRIMARY: 0
+DUPLICATE NON PRIMARY OPTICAL: 0
+DUPLICATE PRIMARY TOTAL: 21851
+DUPLICATE TOTAL: 21851
+ESTIMATED_LIBRARY_SIZE: 157739
+
+normalize v0.5
+
+options:     input VCF file                                  -
+         [o] output VCF file                                 -
+         [w] sorting window size                             10000
+         [m] no fail on masked reference inconsistency       false
+         [n] no fail on reference inconsistency              false
+         [q] quiet                                           false
+         [d] debug                                           false
+         [r] reference FASTA file                            /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa
+
+
+stats: biallelic
+          no. left trimmed                      : 0
+          no. right trimmed                     : 11
+          no. left and right trimmed            : 0
+          no. right trimmed and left aligned    : 0
+          no. left aligned                      : 0
+
+       total no. biallelic normalized           : 11
+
+       multiallelic
+          no. left trimmed                      : 0
+          no. right trimmed                     : 0
+          no. left and right trimmed            : 0
+          no. right trimmed and left aligned    : 0
+          no. left aligned                      : 0
+
+       total no. multiallelic normalized        : 0
+
+       total no. variants normalized            : 11
+       total no. variants observed              : 40
+       total no. reference observed             : 0
+
+Time elapsed: 0.00s
+
+/var/spool/uge/feder001/job_scripts/22617335: line 191: mosdepth: command not found

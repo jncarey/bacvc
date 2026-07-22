@@ -1,0 +1,142 @@
+Read1 before filtering:
+total reads: 74064
+total bases: 11183664
+Q20 bases: 10654872(95.2717%)
+Q30 bases: 10271690(91.8455%)
+Q40 bases: 0(0%)
+
+Read2 before filtering:
+total reads: 74064
+total bases: 11183664
+Q20 bases: 10674744(95.4494%)
+Q30 bases: 10238871(91.552%)
+Q40 bases: 0(0%)
+
+Read1 after filtering:
+total reads: 71444
+total bases: 10315843
+Q20 bases: 9968532(96.6332%)
+Q30 bases: 9639443(93.4431%)
+Q40 bases: 0(0%)
+
+Read2 after filtering:
+total reads: 71444
+total bases: 10315843
+Q20 bases: 9933565(96.2943%)
+Q30 bases: 9547817(92.5549%)
+Q40 bases: 0(0%)
+
+Filtering result:
+reads passed filter: 142888
+reads failed due to low quality: 3822
+reads failed due to too many N: 386
+reads failed due to too short: 1032
+reads with adapter trimmed: 26208
+bases trimmed due to adapters: 1060104
+
+Duplication rate: 8.69518%
+
+Insert size peak (evaluated by paired-end reads): 176
+
+JSON report: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPprB2D2/POPprB2D2.fastp.json
+HTML report: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPprB2D2/POPprB2D2.fastp.html
+
+fastp --in1 /net/feder/vol1/project/pseudomonas_selection/vc/data/allreads/POPpre/POPprB2D2_1.fastq.gz --in2 /net/feder/vol1/project/pseudomonas_selection/vc/data/allreads/POPpre/POPprB2D2_2.fastq.gz --out1 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPprB2D2/POPprB2D2_R1.trimmed.fastq.gz --out2 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPprB2D2/POPprB2D2_R2.trimmed.fastq.gz --length_required 50 --json /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPprB2D2/POPprB2D2.fastp.json --html /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPprB2D2/POPprB2D2.fastp.html --thread 1 
+fastp v1.0.1, time used: 2 seconds
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 69386 sequences (10000152 bp)...
+[samclip] samclip 0.4.0 by Torsten Seemann (@torstenseemann)
+[samclip] Loading: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa.fai
+[samclip] Found 1 sequences in /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa.fai
+[M::process] read 69132 sequences (10000056 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (2, 33358, 0, 0)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (167, 233, 327)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 647)
+[M::mem_pestat] mean and std.dev: (254.13, 120.10)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 807)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_process_seqs] Processed 69386 reads in 2.775 CPU sec, 2.628 real sec
+[M::process] read 4370 sequences (631478 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (1, 33193, 0, 0)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (170, 236, 333)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 659)
+[M::mem_pestat] mean and std.dev: (259.01, 123.31)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 822)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_process_seqs] Processed 69132 reads in 2.823 CPU sec, 2.800 real sec
+[samclip] Processed 100000 records...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (0, 2105, 0, 0)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (172, 237, 329)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 643)
+[M::mem_pestat] mean and std.dev: (255.58, 118.99)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 800)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_process_seqs] Processed 4370 reads in 0.298 CPU sec, 0.293 real sec
+[main] Version: 0.7.18-r1243-dirty
+[main] CMD: bwa mem -t 1 -R @RG\tID:POPprB2D2\tSM:POPprB2D2 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPprB2D2/POPprB2D2_R1.trimmed.fastq.gz /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPprB2D2/POPprB2D2_R2.trimmed.fastq.gz
+[main] Real time: 6.041 sec; CPU: 6.015 sec
+[samclip] Total SAM records 143021, removed 2907, allowed 1390, passed 140114
+[samclip] Header contained 4 lines
+[samclip] Done.
+COMMAND: samtools markdup -r -s - -
+READ: 140114
+WRITTEN: 118322
+EXCLUDED: 668
+EXAMINED: 139446
+PAIRED: 136600
+SINGLE: 2846
+DUPLICATE PAIR: 20418
+DUPLICATE SINGLE: 1374
+DUPLICATE PAIR OPTICAL: 0
+DUPLICATE SINGLE OPTICAL: 0
+DUPLICATE NON PRIMARY: 0
+DUPLICATE NON PRIMARY OPTICAL: 0
+DUPLICATE PRIMARY TOTAL: 21792
+DUPLICATE TOTAL: 21792
+ESTIMATED_LIBRARY_SIZE: 205085
+
+normalize v0.5
+
+options:     input VCF file                                  -
+         [o] output VCF file                                 -
+         [w] sorting window size                             10000
+         [m] no fail on masked reference inconsistency       false
+         [n] no fail on reference inconsistency              false
+         [q] quiet                                           false
+         [d] debug                                           false
+         [r] reference FASTA file                            /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa
+
+
+stats: biallelic
+          no. left trimmed                      : 0
+          no. right trimmed                     : 0
+          no. left and right trimmed            : 0
+          no. right trimmed and left aligned    : 0
+          no. left aligned                      : 0
+
+       total no. biallelic normalized           : 0
+
+       multiallelic
+          no. left trimmed                      : 0
+          no. right trimmed                     : 0
+          no. left and right trimmed            : 0
+          no. right trimmed and left aligned    : 0
+          no. left aligned                      : 0
+
+       total no. multiallelic normalized        : 0
+
+       total no. variants normalized            : 0
+       total no. variants observed              : 1
+       total no. reference observed             : 0
+
+Time elapsed: 0.00s
+
