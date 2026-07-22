@@ -1,0 +1,27 @@
+# Single conda environment for the whole variant-calling pipeline.
+#
+#   mamba env create -f environment.yml
+#   conda activate vc
+#
+# Covers stages 01-05 (bin/config.sh's CONDA_ENV points at this env name by
+# default). Versions are pinned to what this pipeline was developed and
+# validated against.
+name: vc
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - python=3.12
+  - fastp=1.0.1
+  - bwa=0.7.18
+  - samtools=1.20
+  - mosdepth=0.3.6
+  - bcftools=1.21
+  - htslib=1.21
+  - freebayes=1.3.6
+  - vt=0.57721
+  - snpeff=5.0
+  - samclip=0.4.0
+  - minimap2=2.28
+  - bedtools=2.31.1
+  - seqtk=1.4  # only needed to regenerate/resize example data

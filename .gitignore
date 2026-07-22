@@ -1,0 +1,13 @@
+# Pipeline outputs — never committed (can be 100+ GB of per-patient data)
+results/
+
+# Host-specific input symlinks — replace with your own (see README "Setup")
+data/allreads
+data/bakta_gff
+
+# Python
+**/__pycache__/
+*.pyc
+
+# Claude Code session state
+.claude/
