@@ -39,6 +39,15 @@ declare -A POP_TO_REF=(
 # 03_worker.sh; bwa/samtools/bcftools/freebayes/vt/snpEff/samclip elsewhere).
 CONDA_ENV="vc"
 
+# SGE jobs run in bare non-interactive shells with no `conda` on PATH at all
+# (confirmed empirically -- the default job PATH has no conda-related entries,
+# this isn't just the usual .bashrc-no-ops-for-non-interactive-shells issue).
+# Source the hook directly here -- the documented way to make `conda run`/
+# `conda activate` work in a non-interactive script -- since every stage
+# script sources config.sh, this covers all of them (and direct/local runs)
+# in one place, regardless of what environment SGE hands the job.
+source "${HOME}/miniforge3/etc/profile.d/conda.sh"
+
 # === fastp QC ===
 FASTP_LENGTH_REQUIRED=50
 FASTP_EXTRA_OPTS=""

@@ -13,7 +13,8 @@
   by the canonical-VCF missingness filter (04_generate_variant_vcf.py) and the
   table generator's gt_to_cell (04_generate_variant_tables.py).
 
-- classify_isolates:  PR/PO (pre/post) timepoint split, shared by the table
+- group_isolates_by_visit:  splits isolates into groups keyed by visit label
+  (V1, V1A, V2, ...) parsed from each isolate's name, shared by the table
   generator and the canonical pass's per-site missingness QC.
 """
 
@@ -136,29 +137,40 @@ def is_missing_gt(gt):
     return "0" in allele_set and len(allele_set) > 1
 
 
-# ── Isolate PR/PO (pre/post) classification ──────────────────────────────────
+# ── Isolate grouping by visit ────────────────────────────────────────────────
 
-def classify_isolates(pop_name, isolates, log=print):
-    """Split isolates into PR (pre-treatment) and PO (post-treatment) groups
-    using anchored ^{pop}pr / ^{pop}po patterns (case-insensitive).
+def group_isolates_by_visit(patient_id, isolates, log=print):
+    """Group isolates by visit label (V1, V1A, V2, ...) parsed directly from
+    each isolate's real name, e.g. "009-007_V1A_10" -> "V1A".
 
-    Populations with no post samples get an empty po_isolates list. Unmatched
-    isolates are reported via `log` and excluded from both groups."""
-    pr_pat = re.compile(r'^' + re.escape(pop_name) + r'pr', re.IGNORECASE)
-    po_pat = re.compile(r'^' + re.escape(pop_name) + r'po', re.IGNORECASE)
+    Each isolate's name must literally start with "{patient_id}_V<visit>_" to
+    be included -- this both extracts the visit label and confirms the
+    isolate actually belongs to patient_id, so isolates from a different
+    patient can never be silently merged into this patient's visit groups.
 
-    pr_isolates = [iso for iso in isolates if pr_pat.match(iso)]
-    po_isolates = [iso for iso in isolates if po_pat.match(iso)]
-    unmatched = [iso for iso in isolates
-                 if not pr_pat.match(iso) and not po_pat.match(iso)]
+    Returns {visit_label: [isolates]}. Isolates that don't match (wrong
+    patient, or no parseable visit label) are reported via `log` and excluded
+    from every group."""
+    pattern = re.compile(r'^' + re.escape(patient_id) + r'_V(\d+[A-Za-z]?)_')
 
-    log(f"  PR isolates: {len(pr_isolates)}, PO isolates: {len(po_isolates)}")
+    groups = defaultdict(list)
+    unmatched = []
+    for iso in isolates:
+        m = pattern.match(iso)
+        if m:
+            groups[f"V{m.group(1)}"].append(iso)
+        else:
+            unmatched.append(iso)
+
+    for visit in sorted(groups):
+        log(f"  {visit}: {len(groups[visit])} isolate(s)")
     if unmatched:
-        log(f"  WARNING: {len(unmatched)} isolates matched neither pr nor po pattern "
-            f"and will be excluded from frequency calculations:")
+        log(f"  WARNING: {len(unmatched)} isolates didn't match patient "
+            f"'{patient_id}' + a parseable visit label, and will be excluded "
+            f"from frequency calculations:")
         for iso in unmatched[:5]:
             log(f"    {iso}")
         if len(unmatched) > 5:
             log(f"    ... and {len(unmatched) - 5} more")
 
-    return pr_isolates, po_isolates
+    return dict(groups)
