@@ -54,7 +54,7 @@ from pathlib import Path
 
 from pipeline_helpers import (
     build_callable_mask,
-    classify_isolates,
+    group_isolates_by_visit,
     is_callable,
     is_missing_gt,
     load_repeat_bed,
@@ -122,7 +122,7 @@ def main():
                              "this fraction of isolates are missing ('-'). Omit to "
                              "disable the drop (QC is still emitted).")
     parser.add_argument("--pop", default=None,
-                        help="Population name; only used to label PR/PO columns in "
+                        help="Population name; only used to label per-visit columns in "
                              "the missingness QC TSV.")
     parser.add_argument("--missingness-tsv", default=None,
                         help="Write the per-site '-' distribution to this path "
@@ -171,15 +171,18 @@ def main():
         if i_iso % progress_step == 0 or i_iso == len(isolates):
             log(f"  built {i_iso}/{len(isolates)} masks")
 
-    # Population-level missingness filter + QC setup. PR/PO column indices are
-    # precomputed so each record's per-timepoint missing count is a cheap lookup.
+    # Population-level missingness filter + QC setup. Per-visit column indices are
+    # precomputed so each record's per-visit missing count is a cheap lookup.
     n_total = len(isolates)
     if args.pop:
-        pr_isolates, po_isolates = classify_isolates(args.pop, isolates, log=log)
+        visit_groups = group_isolates_by_visit(args.pop, isolates, log=log)
     else:
-        pr_isolates, po_isolates = [], []
-    pr_idx = [i for i, iso in enumerate(isolates) if iso in set(pr_isolates)]
-    po_idx = [i for i, iso in enumerate(isolates) if iso in set(po_isolates)]
+        visit_groups = {}
+    visit_labels = sorted(visit_groups.keys())
+    visit_idx = {
+        v: [i for i, iso in enumerate(isolates) if iso in set(visit_groups[v])]
+        for v in visit_labels
+    }
     if max_missing_frac is not None:
         log(f"Missingness filter: drop snp/mnp sites with >= "
             f"{max_missing_frac:.2f} of {n_total} isolates missing")
@@ -189,11 +192,11 @@ def main():
     qc_fh = None
     if args.missingness_tsv:
         qc_fh = open(args.missingness_tsv, "w")
-        qc_fh.write("\t".join([
-            "CHR", "POS", "REF", "ALT", "TYPE", "N_TOTAL", "N_MISSING",
-            "FRAC_MISSING", "PR_TOTAL", "PR_MISSING", "PO_TOTAL", "PO_MISSING",
-            "EXCLUDED",
-        ]) + "\n")
+        qc_fh.write("\t".join(
+            ["CHR", "POS", "REF", "ALT", "TYPE", "N_TOTAL", "N_MISSING", "FRAC_MISSING"] +
+            sum(([f"{v}_TOTAL", f"{v}_MISSING"] for v in visit_labels), []) +
+            ["EXCLUDED"]
+        ) + "\n")
         log(f"Writing per-site '-' distribution to {args.missingness_tsv}")
 
     log("Walking merged VCF and applying mask")
@@ -270,13 +273,14 @@ def main():
             )
 
             if qc_fh is not None:
-                pr_missing = sum(1 for i in pr_idx if _cell_missing(i))
-                po_missing = sum(1 for i in po_idx if _cell_missing(i))
+                visit_counts = []
+                for v in visit_labels:
+                    v_missing = sum(1 for i in visit_idx[v] if _cell_missing(i))
+                    visit_counts += [str(len(visit_idx[v])), str(v_missing)]
                 qc_fh.write("\t".join([
                     chrom, str(pos), ref, fields[4],
                     ",".join(type_tokens), str(n_total), str(n_missing),
-                    f"{frac_missing:.4f}", str(len(pr_idx)), str(pr_missing),
-                    str(len(po_idx)), str(po_missing),
+                    f"{frac_missing:.4f}"] + visit_counts + [
                     "1" if excluded else "0",
                 ]) + "\n")
 

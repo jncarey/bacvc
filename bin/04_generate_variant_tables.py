@@ -38,7 +38,7 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-from pipeline_helpers import classify_isolates, is_missing_gt
+from pipeline_helpers import group_isolates_by_visit, is_missing_gt
 
 ANNOT_COLS = [
     "FTYPE", "STRAND", "NT_POS", "AA_POS", "EFFECT", "IMPACT",
@@ -90,8 +90,8 @@ def flip_nt_change_to_ref_strand(nt_change):
 
 
 # ── Isolate classification ─────────────────────────────────────────────────────
-# classify_isolates lives in pipeline_helpers so the canonical-VCF pass can reuse
-# the identical PR/PO split for its per-site missingness QC.
+# group_isolates_by_visit lives in pipeline_helpers so the canonical-VCF pass can
+# reuse the identical per-visit split for its per-site missingness QC.
 
 
 # ── GFF lookup ────────────────────────────────────────────────────────────────
@@ -326,11 +326,38 @@ def filter_disruptive(variants, var_annots, isolates):
 
 def compute_freq(gts, group_isolates):
     if not group_isolates:
-        return 0, 0.0
+        return None, None
     ct = sum(1 for iso in group_isolates if gts.get(iso, "0") == "1")
     total = sum(1 for iso in group_isolates if gts.get(iso, "0") != "-")
     frq = ct / total if total > 0 else 0.0
     return ct, frq
+
+
+def fmt_ct(ct):
+    return "NA" if ct is None else str(ct)
+
+
+def fmt_frq(frq):
+    return "NA" if frq is None else f"{frq:.4f}"
+
+
+def visit_header_cols(visit_labels):
+    """['FRQ', 'V1A_CT', 'V1A_FRQ', 'V2_CT', 'V2_FRQ', ...]: overall FRQ,
+    then a CT/FRQ pair per visit label, in sorted order."""
+    cols = ["FRQ"]
+    for v in visit_labels:
+        cols += [f"{v}_CT", f"{v}_FRQ"]
+    return cols
+
+
+def visit_freq_row(gts, isolates, visit_groups, visit_labels):
+    """Row values matching visit_header_cols for one variant's gts dict."""
+    _, frq = compute_freq(gts, isolates)
+    row = [fmt_frq(frq)]
+    for v in visit_labels:
+        ct, vfrq = compute_freq(gts, visit_groups[v])
+        row += [fmt_ct(ct), fmt_frq(vfrq)]
+    return row
 
 
 # ── Output ────────────────────────────────────────────────────────────────────
@@ -341,11 +368,11 @@ def sort_key(variant_key):
 
 
 def write_tables(sorted_keys, variants_dict, var_types, var_annots,
-                 isolates, pr_isolates, po_isolates,
+                 isolates, visit_groups, visit_labels,
                  gt_path, annot_path, label):
     header_gt = ["CHR", "POS", "TYPE", "REF", "ALT"] + isolates
     header_annot = (["CHR", "POS", "TYPE", "REF", "ALT"] + ANNOT_COLS +
-                    ["PR_CT", "PO_CT", "FRQ", "PR_FRQ", "PO_FRQ"])
+                    visit_header_cols(visit_labels))
 
     with open(gt_path, "w", newline="") as fg, open(annot_path, "w", newline="") as fa:
         wg = csv.writer(fg, delimiter="\t")
@@ -358,9 +385,6 @@ def write_tables(sorted_keys, variants_dict, var_types, var_annots,
             gts = variants_dict[key]
             t = var_types.get(key, "")
             annot = var_annots.get(key, {col: "" for col in ANNOT_COLS})
-            _, frq = compute_freq(gts, isolates)
-            pr_ct, pr_frq = compute_freq(gts, pr_isolates)
-            po_ct, po_frq = compute_freq(gts, po_isolates)
 
             wg.writerow(
                 [chrom, pos, t, ref, alt] + [gts.get(iso, "0") for iso in isolates]
@@ -368,16 +392,16 @@ def write_tables(sorted_keys, variants_dict, var_types, var_annots,
             wa.writerow(
                 [chrom, pos, t, ref, alt] +
                 [annot.get(col, "") for col in ANNOT_COLS] +
-                [pr_ct, po_ct, f"{frq:.4f}", f"{pr_frq:.4f}", f"{po_frq:.4f}"]
+                visit_freq_row(gts, isolates, visit_groups, visit_labels)
             )
 
     print(f"  Wrote {label}: {gt_path.name} + {annot_path.name} ({len(sorted_keys)} variants)")
 
 
 def write_annot_table(sorted_keys, variants, var_types, var_annots,
-                      isolates, pr_isolates, po_isolates, annot_path, label):
+                      isolates, visit_groups, visit_labels, annot_path, label):
     header = (["CHR", "POS", "TYPE", "REF", "ALT"] + ANNOT_COLS +
-              ["PR_CT", "PO_CT", "FRQ", "PR_FRQ", "PO_FRQ"])
+              visit_header_cols(visit_labels))
 
     with open(annot_path, "w", newline="") as fa:
         wa = csv.writer(fa, delimiter="\t")
@@ -387,13 +411,10 @@ def write_annot_table(sorted_keys, variants, var_types, var_annots,
             gts = variants[key]
             t = var_types.get(key, "")
             annot = var_annots.get(key, {col: "" for col in ANNOT_COLS})
-            _, frq = compute_freq(gts, isolates)
-            pr_ct, pr_frq = compute_freq(gts, pr_isolates)
-            po_ct, po_frq = compute_freq(gts, po_isolates)
             wa.writerow(
                 [chrom, pos, t, ref, alt] +
                 [annot.get(col, "") for col in ANNOT_COLS] +
-                [pr_ct, po_ct, f"{frq:.4f}", f"{pr_frq:.4f}", f"{po_frq:.4f}"]
+                visit_freq_row(gts, isolates, visit_groups, visit_labels)
             )
 
     print(f"  Wrote {label}: {annot_path.name} ({len(sorted_keys)} variants)")
@@ -431,7 +452,8 @@ def main():
     isolates, variants, var_types, var_annots = parse_merged_vcf(merged_vcf, gff_lookup)
     print(f"Found {len(isolates)} isolates in {merged_vcf.name}")
 
-    pr_isolates, po_isolates = classify_isolates(pop_name, isolates)
+    visit_groups = group_isolates_by_visit(pop_name, isolates)
+    visit_labels = sorted(visit_groups.keys())
 
     out_dir = (Path(args.out_dir) if args.out_dir
                else merged_vcf.resolve().parent.parent / "pop_tables")
@@ -443,7 +465,7 @@ def main():
     print(f"  Variants with at least one ALT call: {len(called_variants)} / {len(variants)}")
     all_sorted_keys = sorted(called_variants.keys(), key=sort_key)
     write_annot_table(all_sorted_keys, called_variants, var_types, var_annots,
-                      isolates, pr_isolates, po_isolates,
+                      isolates, visit_groups, visit_labels,
                       out_dir / "var.annot.tab", "all variants")
 
     # SNPs: snp/mnp, plus complex variants that are missense/synonymous (substitutions
@@ -468,7 +490,7 @@ def main():
                 if var_types.get(k, "") in ("snp", "mnp") or is_snp_like_complex(k)]
     print(f"  SNPs: {len(snp_keys)}")
     write_tables(snp_keys, called_variants, var_types, var_annots,
-                 isolates, pr_isolates, po_isolates,
+                 isolates, visit_groups, visit_labels,
                  out_dir / "snp.gt.tab", out_dir / "snp.annot.tab", "SNPs/MNPs")
 
     # INDELs: ins/del/complex, excluding the complex variants reclassified as SNPs
@@ -477,7 +499,7 @@ def main():
                   and not is_snp_like_complex(k)]
     print(f"  INDELs: {len(indel_keys)}")
     write_tables(indel_keys, called_variants, var_types, var_annots,
-                 isolates, pr_isolates, po_isolates,
+                 isolates, visit_groups, visit_labels,
                  out_dir / "indel.gt.tab", out_dir / "indel.annot.tab", "INDELs")
 
     # Disruptive variants
@@ -485,7 +507,7 @@ def main():
     disruptive = filter_disruptive(variants, var_annots, isolates)
     disruptive_keys = sorted(disruptive.keys(), key=sort_key)
     write_annot_table(disruptive_keys, disruptive, var_types, var_annots,
-                      isolates, pr_isolates, po_isolates,
+                      isolates, visit_groups, visit_labels,
                       out_dir / "disruptive.annot.tab", "disruptive variants")
 
     print("Done!")
