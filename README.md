@@ -45,11 +45,21 @@ every stage runs its tools via `conda run`/`conda activate` against it.
   `${FASTQ_BASE_DIR}/<POP>{pre,post}/<sample>_{1,2}.fastq.gz`
   (`FASTQ_BASE_DIR` is set in `bin/config.sh`, defaults to `data/allreads`).
   `<POP>` is a short population code (e.g. `POP1`); `pre`/`post` are literal
-  suffixes selecting the timepoint subdirectory; `<sample>` becomes the
-  isolate ID used everywhere downstream (BAM read groups, VCF sample names,
-  table columns) and must start with `<POP>pr` or `<POP>po` respectively —
-  isolates that match neither are excluded from PR/PO frequency calculations
-  (see "Variant table semantics" below).
+  suffixes selecting the *discovery* subdirectory only — `run_population.sh`
+  uses them purely to find FASTQs, not to classify isolates (see below).
+  `<sample>` becomes the isolate ID used everywhere downstream (BAM read
+  groups, VCF sample names, table columns).
+- **Isolate naming for frequency grouping**: independent of which `pre`/`post`
+  directory a sample's reads were found in, `<sample>` must literally start
+  with `<POP>_V<visit>_` (e.g. `009-007_V1A_10` for population/patient
+  `009-007`, visit `V1A`) for `bin/pipeline_helpers.py`'s
+  `group_isolates_by_visit()` to place it in a visit group. Isolates that
+  don't match (wrong population prefix, or no parseable `_V<visit>_` token)
+  are excluded from every per-visit frequency column — reported as a
+  `WARNING` on stderr, not a hard failure (see "Variant table semantics"
+  below). **The bundled `example/` dataset predates this convention** (its
+  isolates are named `POPpr*`/`POPpo*`, not `POP_V*_*`) — see the Quickstart
+  note below.
 - **Reference genomes**: one [bakta](https://github.com/oschwengers/bakta)
   annotation per population reference isolate, providing both `<ref>.fna`
   (assembly FASTA) and `<ref>.gbff` (GenBank flatfile with CDS features) under
@@ -88,15 +98,25 @@ Monitor with `qstat -u $USER`; once the `aln_POP` job finishes, check
 `results/populations/POP/{aln,pop_tables}/` for output (never committed —
 see `.gitignore`).
 
+> **Stale as of the `group_isolates_by_visit` rewrite:** the demo's isolates
+> are named `POPpr*`/`POPpo*`, which no longer matches the `POP_V<visit>_*`
+> naming the table/VCF generators now group by (see "Input data contract").
+> The Quickstart still *runs* end-to-end, but every isolate will land in
+> `pipeline_helpers.py`'s `unmatched` bucket — you'll see a `WARNING: ...
+> isolates didn't match population 'POP' + a parseable visit label` for all
+> 4, and the output tables will carry only the overall `FRQ` column, no
+> per-visit `V*_CT`/`V*_FRQ` breakdown. Renaming the demo's isolates (and
+> re-deriving `example/results/`) to match is a follow-up, not done yet.
+
 ## Stages
 
 | # | Script | Purpose |
 |---|--------|---------|
 | 01 | `bin/01_build_snpeff_db.sh` | Build a snpEff database per reference genome from its `.gbff`/`.fna`. Writes `snpeff/<ref>/` and a shared `snpeff/snpeff.config`. Uses `bin/gbff_to_snpeff_gff.py` to make a flat CDS-only GFF that snpEff and the table generator both consume; that script optionally applies `bin/gene_name_overrides.tsv` if present (cohort-specific locus-tag reconciliation — harmless/no-op for a fresh dataset). |
 | 02 | `bin/02_prepare_reference.sh` | For each population, copy the reference `.fna` to `populations/<POP>/reference/ref.fa`, `bwa index`, `samtools faidx`, copy `genes.gff` → `ref.gff`, symlink the snpEff config, and minimap2-self-align the reference to emit `reference/ref.repeats.bed` (repetitive regions excluded in stage 04). |
-| 03 | `bin/03_worker.sh` | Per-isolate SGE array task: fastp QC → `bwa mem` → `samclip` → `samtools sort/fixmate/markdup` → `freebayes` → `bcftools view` filter → `vt normalize` → `snpEff ann`. Output: `populations/<POP>/variants/<sample>/snps.norm.annot.vcf`. |
-| 04a | `bin/04_run_generate_variant_vcf.sh` + `04_generate_variant_vcf.py` | After all workers finish, build the **canonical merged multi-sample VCF** (`aln/<POP>.merged.vcf.gz`): per-sample `+setGT` masking → `bcftools merge` → drop records overlapping `ref.repeats.bed` → mosdepth low-coverage mask → drop snp/mnp sites with ≥80% isolates missing (writes a per-site `-` distribution to `aln/<POP>.snp_site_missingness.tsv`). Derive the TreeTime VCF (`aln/<POP>.treetime.vcf.gz`, snp/mnp subset) from it. |
-| 04b | `bin/04_run_generate_variant_tables.sh` + `04_generate_variant_tables.py` | Held on 04a. Derive population tables from the same canonical VCF (`bcftools norm -m-` → `snpEff ann` → genotype/annotation tables for all/SNP/INDEL/disruptive variants, with pre/post allele counts and frequencies). Re-runs snpEff, so the reference's `snpeff.config` entry from stage 01 must be present (the wrapper fails loud otherwise). |
+| 03 | `bin/03_worker.sh` | Per-isolate SGE array task: fastp QC → `bwa mem` → `samclip` → `samtools sort/fixmate/markdup` → `freebayes` → normalize + snpEff-annotate (via `config.sh`'s `normalize_annotate_vcf()` bash function — QUAL filter → `vt normalize` → `snpEff ann`). Output: `populations/<POP>/variants/<sample>/snps.norm.annot.vcf`. `bin/normalize_annotate_vcf.sh` is a standalone, parameterized twin of that same function's logic, for callers that don't source `config.sh` (e.g. an external Snakemake pipeline calling this repo's scripts directly — see "Reuse as a library" below). |
+| 04a | `bin/04_run_generate_variant_vcf.sh` + `04_generate_variant_vcf.py` | After all workers finish, build the **canonical merged multi-sample VCF** (`aln/<POP>.merged.vcf.gz`): per-sample `+setGT` masking → `bcftools merge` → drop records overlapping `ref.repeats.bed` → mosdepth low-coverage mask → drop snp/mnp sites with ≥80% isolates missing (writes a per-site `-` distribution to `aln/<POP>.snp_site_missingness.tsv`, with a column pair per visit group — see "Variant table semantics"). Derive the TreeTime VCF (`aln/<POP>.treetime.vcf.gz`, snp/mnp subset) from it. |
+| 04b | `bin/04_run_generate_variant_tables.sh` + `04_generate_variant_tables.py` | Held on 04a. Derive population tables from the same canonical VCF (`bcftools norm -m-` → `snpEff ann` → genotype/annotation tables for all/SNP/INDEL/disruptive variants, with per-visit allele counts and frequencies — see "Variant table semantics"). Re-runs snpEff, so the reference's `snpeff.config` entry from stage 01 must be present (the wrapper fails loud otherwise). |
 | 05 | `bin/05_run_generate_snp_alignment.sh` + `05_generate_snp_alignment.py` | Held on 04b. Build the per-population SNP alignment FASTA from `pop_tables/snp.gt.tab`. |
 
 Both stage-04 artifacts derive from the single canonical merged VCF, so the
@@ -124,13 +144,43 @@ an identical excluded set:
    `INFO/TYPE` is purely `snp`/`mnp` **and**, after low-coverage masking, at
    least `SNP_SITE_MAX_MISSING_FRAC` (default 0.80) of isolates are missing
    (`-`). Scoped to snp/mnp only, so **indels are never affected**. A per-site
-   `-` distribution (overall + pre/post split, with an `EXCLUDED` flag) is always
-   written to `aln/<POP>.snp_site_missingness.tsv`, regardless of the toggle.
+   `-` distribution (overall + one `{VISIT}_TOTAL`/`{VISIT}_MISSING` column
+   pair per visit group found in the isolate names — see "Variant table
+   semantics" — with an `EXCLUDED` flag) is always written to
+   `aln/<POP>.snp_site_missingness.tsv`, regardless of the toggle.
 
 `bin/run_population.sh` is the entry point: it discovers FASTQ inputs,
 generates `populations/<POP>/input.tab`, submits the worker array, then submits
 stage 04a (`-hold_jid` on the worker array), 04b (held on 04a) and 05 (held on
 04b).
+
+## Reuse as a library
+
+`run_population.sh`'s SGE array + `-hold_jid` chaining is one way to drive
+this pipeline, not the only one. A project with its own orchestrator (e.g. a
+Snakemake pipeline with its own isolate-discovery, its own reference-per-patient
+mapping, its own scheduling) can call the underlying building blocks directly
+instead, without sourcing `config.sh` or going through `run_population.sh` at
+all:
+
+- `bin/gbff_to_snpeff_gff.py <gbff>` — flat CDS-only GFF from a bakta `.gbff`.
+- `bin/normalize_annotate_vcf.sh <raw_vcf> <ref_fa> <ref_name> <out_vcf>
+  <snpeff_config> <snpeff_datadir> <filt_min_qual>` — the standalone twin of
+  stage 03's `normalize_annotate_vcf()` bash function; takes every path/param
+  as an explicit argument instead of reading them off `config.sh` globals.
+- `bin/04_generate_variant_vcf.py` and `bin/04_generate_variant_tables.py` —
+  plain argparse CLIs (see `--help`); `--pop` only affects visit-group
+  labeling (see "Variant table semantics"), so any string works as long as
+  isolate names are prefixed with it.
+- `bin/05_generate_snp_alignment.py` — likewise a standalone CLI.
+- `bin/pipeline_helpers.py` — shared logic (callable-mask building, repeat-BED
+  overlap, missing-GT detection, `group_isolates_by_visit`) importable
+  directly if a caller is doing its own thing in Python rather than shelling
+  out to the scripts above.
+
+The external orchestrator is responsible for its own scheduling (SGE, local,
+whatever) and its own input discovery; this repo's contract in that mode is
+just "given these files/paths, produce this pipeline stage's output."
 
 ## Configuration
 
@@ -208,6 +258,20 @@ tuple. Per-isolate genotypes are encoded `1` (hom-ALT, passes
 DP/QUAL/AO-frac thresholds), `0` (hom-REF, passes RO-frac threshold), or
 `-` (het / missing / failed filter). Annotation columns come from
 snpEff's `ANN=` field reconciled against the bakta GFF for stable
-`LOCUS_TAG` / `GENE` / `PRODUCT`. `PR_*` and `PO_*` counts and
-frequencies are computed over isolates whose names match `^<POP>pr` and
-`^<POP>po`, respectively.
+`LOCUS_TAG` / `GENE` / `PRODUCT`.
+
+Frequency columns are **dynamic per-visit**, not the fixed pre/post pair
+older versions of this pipeline used. `bin/pipeline_helpers.py`'s
+`group_isolates_by_visit(pop_name, isolates)` parses each isolate's real
+name for a `^<pop_name>_V<visit>_` prefix (e.g. `009-007_V1A_10` → visit
+`V1A`) and buckets it there; isolates that don't match are excluded from
+every group (see "Input data contract"). The annot tables (`var.annot.tab`,
+`snp.annot.tab`, `indel.annot.tab`, `disruptive.annot.tab`) then get one
+overall `FRQ` column followed by a `{VISIT}_CT`/`{VISIT}_FRQ` pair **per
+visit label actually present in the data**, sorted alphabetically — so the
+column set differs population to population depending on how many distinct
+visits its isolates span (a population with only `V1`/`V1A` isolates gets
+two CT/FRQ pairs; one spanning `V1`, `V1A`, `V1B`, `V2` gets four). This
+replaces the old fixed `PR_CT`/`PO_CT`/`PR_FRQ`/`PO_FRQ` columns entirely —
+there is no longer a hardcoded two-timepoint assumption anywhere in the
+table/VCF generators.
