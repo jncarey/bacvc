@@ -1,0 +1,37 @@
+=== Building canonical merged VCF + TreeTime VCF for POP ===
+  Variants: /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/variants
+  Canonical: /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/aln/POP.merged.vcf.gz
+  TreeTime:  /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/aln/POP.treetime.vcf.gz
+  Repeats:   /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.repeats.bed (excluded)
+  Missing:   drop snp/mnp sites with frac '-' >= 0.80
+  Isolates: 4
+Filled 0 alleles
+Filled 0 alleles
+Filled 20 alleles
+Filled 10 alleles
+[16:42:08] Loaded repeat BED /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.repeats.bed: 62 intervals across 1 contig(s)
+[16:42:08] Reference: 1 contigs, 6,444,197 bp
+[16:42:08] Building callable masks for 4 samples (~787 KB each, ~3.1 MB total)
+[16:42:08]   built 1/4 masks
+[16:42:08]   built 2/4 masks
+[16:42:09]   built 3/4 masks
+[16:42:09]   built 4/4 masks
+[16:42:09]   V1: 2 isolate(s)
+[16:42:09]   V2: 2 isolate(s)
+[16:42:09] Missingness filter: drop snp/mnp sites with >= 0.80 of 4 isolates missing
+[16:42:09] Writing per-site '-' distribution to /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/aln/POP.snp_site_missingness.tsv
+[16:42:09] Walking merged VCF and applying mask
+[16:42:09] Done. Sites written:              56
+[16:42:09]   records dropped (repeat region):13
+[16:42:09]   records dropped (high-missing snp site): 0
+[16:42:09]   0/0 -> ./. masked (low cov):    1
+[16:42:09]   0/0 kept (covered REF):         162
+[16:42:09]   ALT calls left untouched:       57
+[16:42:09]   ./. preserved (upstream-masked):4
+  [1/5] Per-sample setGT (4 samples)...
+  [2/5] bcftools merge --missing-to-ref...
+  [3/5] repeat exclusion + mosdepth mask + missingness filter...
+  [4/5] bgzip + tabix canonical merged VCF...
+  [5/5] deriving TreeTime VCF (snp/mnp subset)...
+=== Done: POP ===
+

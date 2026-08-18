@@ -1,11 +1,11 @@
 ##fileformat=VCFv4.2
 ##FILTER=<ID=PASS,Description="All filters passed">
-##fileDate=20260722
+##fileDate=20260818
 ##source=freeBayes v1.3.6
-##reference=/net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa
+##reference=/net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.fa
 ##contig=<ID=contig_1,length=6444197>
 ##phasing=none
-##commandline="freebayes -p 2 -P 0 -C 2 -F 0.05 --min-coverage 10 --min-repeat-entropy 1.0 -q 13 -m 60 --strict-vcf -f /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/variants/POPpoB1G7/POPpoB1G7.bam"
+##commandline="freebayes -p 2 -P 0 -C 2 -F 0.05 --min-coverage 10 --min-repeat-entropy 1.0 -q 13 -m 60 --strict-vcf -f /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.fa /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/variants/POP_V2_B1G7/POP_V2_B1G7.bam"
 ##INFO=<ID=DP,Number=1,Type=Integer,Description="Total read depth at the locus">
 ##INFO=<ID=RO,Number=1,Type=Integer,Description="Count of full observations of the reference haplotype.">
 ##INFO=<ID=AO,Number=A,Type=Integer,Description="Count of full observations of this alternate haplotype.">
@@ -21,15 +21,15 @@
 ##FORMAT=<ID=AO,Number=A,Type=Integer,Description="Alternate allele observation count">
 ##FORMAT=<ID=QA,Number=A,Type=Integer,Description="Sum of quality of the alternate observations">
 ##bcftools_viewVersion=1.21+htslib-1.21
-##bcftools_viewCommand=view --include QUAL>=100 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/variants/POPpoB1G7/snps.raw.vcf; Date=Wed Jul 22 10:29:50 2026
+##bcftools_viewCommand=view --include QUAL>=100 /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/variants/POP_V2_B1G7/snps.raw.vcf; Date=Tue Aug 18 16:41:55 2026
 ##bcftools_annotateVersion=1.21+htslib-1.21
-##bcftools_annotateCommand=annotate --remove ^INFO/TYPE,^INFO/DP,^INFO/RO,^INFO/AO,^INFO/AB,^FORMAT/GT,^FORMAT/DP,^FORMAT/RO,^FORMAT/AO,^FORMAT/QR,^FORMAT/QA,^FORMAT/GL; Date=Wed Jul 22 10:29:50 2026
+##bcftools_annotateCommand=annotate --remove ^INFO/TYPE,^INFO/DP,^INFO/RO,^INFO/AO,^INFO/AB,^FORMAT/GT,^FORMAT/DP,^FORMAT/RO,^FORMAT/AO,^FORMAT/QR,^FORMAT/QA,^FORMAT/GL; Date=Tue Aug 18 16:41:55 2026
 ##SnpEffVersion="5.0e (build 2021-03-09 06:01), by Pablo Cingolani"
 ##SnpEffCmd="SnpEff  -noStats -no-downstream -no-upstream -no-utr POP_autocycler "
 ##INFO=<ID=ANN,Number=.,Type=String,Description="Functional annotations: 'Allele | Annotation | Annotation_Impact | Gene_Name | Gene_ID | Feature_Type | Feature_ID | Transcript_BioType | Rank | HGVS.c | HGVS.p | cDNA.pos / cDNA.length | CDS.pos / CDS.length | AA.pos / AA.length | Distance | ERRORS / WARNINGS / INFO' ">
 ##INFO=<ID=LOF,Number=.,Type=String,Description="Predicted loss of function effects for this variant. Format: 'Gene_Name | Gene_ID | Number_of_transcripts_in_gene | Percent_of_transcripts_affected'">
 ##INFO=<ID=NMD,Number=.,Type=String,Description="Predicted nonsense mediated decay effects for this variant. Format: 'Gene_Name | Gene_ID | Number_of_transcripts_in_gene | Percent_of_transcripts_affected'">
-#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	POPpoB1G7
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	POP_V2_B1G7
 contig_1	14330	.	GCC	G	1150.77	.	AB=0;AO=39;DP=39;QA=1318;QR=0;RO=0;TYPE=del;ANN=G|frameshift_variant|HIGH|PA0011|GENE_PA0011|transcript|TRANSCRIPT_PA0011|protein_coding|1/1|c.578_579delCC|p.Pro193fs|578/888|578/888|193/295||INFO_REALIGN_3_PRIME;LOF=(PA0011|GENE_PA0011|1|1.00)	GT:DP:RO:QR:AO:QA:GL	1/1:39:0:0:39:1318:-118.92,-11.7402,0
 contig_1	15784	.	C	T	1382.8	.	AB=0;AO=47;DP=47;QA=1565;QR=0;RO=0;TYPE=snp;ANN=T|synonymous_variant|LOW|PA0013|GENE_PA0013|transcript|TRANSCRIPT_PA0013|protein_coding|1/1|c.645C>T|p.Ser215Ser|645/654|645/654|215/217||	GT:DP:RO:QR:AO:QA:GL	1/1:47:0:0:47:1565:-141.139,-14.1484,0
 contig_1	28382	.	C	T	770.243	.	AB=0;AO=26;DP=26;QA=884;QR=0;RO=0;TYPE=snp;ANN=T|synonymous_variant|LOW|PA0027|GENE_PA0027|transcript|TRANSCRIPT_PA0027|protein_coding|1/1|c.246C>T|p.Arg82Arg|246/1287|246/1287|82/428||	GT:DP:RO:QR:AO:QA:GL	1/1:26:0:0:26:884:-79.8744,-7.82678,0

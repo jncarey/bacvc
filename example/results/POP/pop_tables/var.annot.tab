@@ -1,54 +1,54 @@
-CHR	POS	TYPE	REF	ALT	FTYPE	STRAND	NT_POS	AA_POS	EFFECT	IMPACT	NT_CHANGE	AA_CHANGE	ID	LOCUS_TAG	GENE	PRODUCT	PR_CT	PO_CT	FRQ	PR_FRQ	PO_FRQ
-contig_1	9748	snp	C	T	CDS	+	1469/1617	490/538	missense_variant	MODERATE	1469C>T	Ala490Val	POP_autocycler_00007	PA0007		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	14330	del	GCC	G	CDS	+	578/888	193/295	frameshift_variant	HIGH	578_579delCC	Pro193fs	POP_autocycler_00011	PA0011		lipid A biosynthesis lauroyl acyltransferase	0	1	0.2500	0.0000	0.5000
-contig_1	15784	snp	C	T	CDS	+	645/654	215/217	synonymous_variant	LOW	645C>T	Ser215Ser	POP_autocycler_00013	PA0013		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	16008	snp	C	T	CDS	-	124/273	42/90	missense_variant	MODERATE	124C>T	Ala42Thr	POP_autocycler_00014	PA0014		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	26980	snp	C	T	CDS	+	746/825	249/274	missense_variant	MODERATE	746C>T	Ala249Val	POP_autocycler_00025	PA0025	aroE	shikimate dehydrogenase	0	1	0.2500	0.0000	0.5000
-contig_1	28382	snp	C	T	CDS	+	246/1287	82/428	synonymous_variant	LOW	246C>T	Arg82Arg	POP_autocycler_00027	PA0027		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	51475	del	CG	C	CDS	+	9045/10605	3015/3534	frameshift_variant	HIGH	9045delG	Leu3016fs	POP_autocycler_00042	PA0041		hemagglutinin	0	1	0.2500	0.0000	0.5000
-contig_1	55401	del	AG	A					intergenic_region	MODIFIER	55402delG			POP_autocycler_00043-POP_autocycler_00044			0	2	0.5000	0.0000	1.0000
-contig_1	71345	snp	C	T	CDS	-	135/507	45/168	synonymous_variant	LOW	135C>T	Arg45Arg	POP_autocycler_00060	PA0055		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	78779	del	CG	C	CDS	-	161/666	54/221	frameshift_variant	HIGH	161delG	Pro54fs	POP_autocycler_00070	PA0065		5'-nucleotidase	0	1	0.2500	0.0000	0.5000
-contig_1	80874	snp	T	C	CDS	+	1322/2046	441/681	missense_variant	MODERATE	1322T>C	Val441Ala	POP_autocycler_00072	PA0067	prlC	oligopeptidase A	0	1	0.2500	0.0000	0.5000
-contig_1	101321	snp	A	G	CDS	+	361/1035	121/344	missense_variant	MODERATE	361A>G	Thr121Ala	POP_autocycler_00087	PA0082	tssA	hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	101736	del	AG	A	CDS	+	782/1035	261/344	frameshift_variant	HIGH	782delG	Gly261fs	POP_autocycler_00087	PA0082	tssA	hypothetical protein	0	1	0.3333	0.0000	1.0000
-contig_1	113316	snp	C	T	CDS	+	1513/1941	505/646	missense_variant	MODERATE	1513C>T	Arg505Cys	POP_autocycler_00096	PA0091	vgrG	type VI secretion system protein VgrG	0	1	0.2500	0.0000	0.5000
-contig_1	124860	del	GAT	G	CDS	+	373/729	125/242	frameshift_variant	HIGH	373_374delAT	Met125fs	POP_autocycler_00107	PA0102		carbonic anhydrase	1	0	0.2500	0.5000	0.0000
-contig_1	138236	snp	C	T	CDS	+	371/729	124/242	missense_variant	MODERATE	371C>T	Ala124Val	POP_autocycler_00122	PA0117		short-chain dehydrogenase	0	1	0.2500	0.0000	0.5000
-contig_1	166501	snp	C	T					intergenic_region	MODIFIER	166501C>T			PA0145-PA0146			0	1	0.2500	0.0000	0.5000
-contig_1	176094	snp	G	A	CDS	+	8/606	3/201	missense_variant	MODERATE	8G>A	Arg3His	POP_autocycler_00159	PA0154	pcaG	protocatechuate 3,4-dioxygenase subunit alpha	1	2	0.7500	0.5000	1.0000
-contig_1	178022	snp	G	A	CDS	+	84/1104	28/367	synonymous_variant	LOW	84G>A	Leu28Leu	POP_autocycler_00161	PA0156		resistance-nodulation-cell division (RND) efflux	0	1	0.2500	0.0000	0.5000
-contig_1	189736	ins	C	CG	CDS	+	40/837	14/278	frameshift_variant	HIGH	39dupG	Leu14fs	POP_autocycler_00170	PA0165		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	193060	snp	T	C	CDS	+	106/591	36/196	missense_variant	MODERATE	106T>C	Phe36Leu	POP_autocycler_00173	PA0168		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	197208	snp	A	G	CDS	-	128/1992	43/663	missense_variant	MODERATE	128A>G	Leu43Pro	POP_autocycler_00177	PA0172	siaA	hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	203299	snp	A	G	CDS	-	1364/1929	455/642	missense_variant	MODERATE	1364A>G	Leu455Pro	POP_autocycler_00183	PA0178		two-component sensor	0	1	0.2500	0.0000	0.5000
-contig_1	215744	snp	C	T	CDS	+	518/882	173/293	missense_variant	MODERATE	518C>T	Pro173Leu	POP_autocycler_00193	PA0188		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	222424	snp	A	G	CDS	+	244/903	82/300	missense_variant	MODERATE	244A>G	Thr82Ala	POP_autocycler_00198	PA0193		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	231236	snp	G	A					intergenic_region	MODIFIER	231236G>A			PA0201-PA0208			1	0	0.2500	0.5000	0.0000
-contig_1	237707	ins	C	CG	CDS	+	274/405	92/134	frameshift_variant	HIGH	273dupG	Pro92fs	POP_autocycler_00215	PA0215	madL	malonate transporter MadL	0	1	0.2500	0.0000	0.5000
-contig_1	245993	snp	A	G	CDS	+	200/1059	67/352	missense_variant	MODERATE	200A>G	Tyr67Cys	POP_autocycler_00222	PA0222		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	250617	snp	C	T	CDS	+	273/783	91/260	synonymous_variant	LOW	273C>T	Gly91Gly	POP_autocycler_00227	PA0227	catJ	CoA transferase subunit B	0	1	0.2500	0.0000	0.5000
-contig_1	263315	snp	T	C	CDS	+	597/816	199/271	synonymous_variant	LOW	597T>C	Arg199Arg	POP_autocycler_00238	PA0238		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	265050	del	GGC	G	CDS	-	787/1251	263/416	frameshift_variant	HIGH	787_788delGC	Ala263fs	POP_autocycler_00240	PA0240		porin	0	1	0.2500	0.0000	0.5000
-contig_1	286592	snp	C	T					intergenic_region	MODIFIER	286592C>T			PA0266-PA0267			0	1	0.3333	0.0000	1.0000
-contig_1	286703	ins	G	GGGC					intergenic_region	MODIFIER	286703_286704insGGC			PA0266-PA0267			1	0	0.2500	0.5000	0.0000
-contig_1	303304	snp	C	T	CDS	-	1370/2283	457/760	missense_variant	MODERATE	1370C>T	Ser457Asn	POP_autocycler_00279	PA0285		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	315354	snp	A	G	CDS	-	423/666	141/221	synonymous_variant	LOW	423A>G	Arg141Arg	POP_autocycler_00288	PA0294	aguR	transcriptional regulator AguR	0	1	0.2500	0.0000	0.5000
-contig_1	316948	snp	A	G					intergenic_region	MODIFIER	316948A>G			PA0295-PA0296			0	1	0.2500	0.0000	0.5000
-contig_1	318684	del	GA	G					intergenic_region	MODIFIER	318685delA			PA0296-PA0297			0	1	0.2500	0.0000	0.5000
-contig_1	319645	snp	A	G	CDS	+	42/1359	14/452	synonymous_variant	LOW	42A>G	Glu14Glu	POP_autocycler_00293	PA0298	spuB	glutamine synthetase	0	1	0.2500	0.0000	0.5000
-contig_1	321258	snp	C	T	CDS	+	231/1371	77/456	synonymous_variant	LOW	231C>T	Ala77Ala	POP_autocycler_00294	PA0299	spuC	aminotransferase	0	1	0.2500	0.0000	0.5000
-contig_1	329616	snp	C	T	CDS	-	1152/2388	384/795	synonymous_variant	LOW	1152C>T	Lys384Lys	POP_autocycler_00300	PA0305		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	333654	del	CG	C	CDS	+	457/942	153/313	frameshift_variant	HIGH	457delG	Ala153fs	POP_autocycler_00304	PA0308		hypothetical protein	0	2	0.5000	0.0000	1.0000
-contig_1	335025	snp	T	C					intergenic_region	MODIFIER	335025T>C			PA0309-PA0310			0	1	0.2500	0.0000	0.5000
-contig_1	335140	snp	C	T	CDS	+	105/630	35/209	synonymous_variant	LOW	105C>T	Thr35Thr	POP_autocycler_00306	PA0310		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	340666	del	CG	C					intergenic_region	MODIFIER	340667delG			PA0316-PA0317			0	1	0.2500	0.0000	0.5000
-contig_1	343296	snp	A	G	CDS	+	230/933	77/310	missense_variant	MODERATE	230A>G	Asp77Gly	POP_autocycler_00317	PA0319		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	345312	snp	C	T	CDS	-	237/1035	79/344	synonymous_variant	LOW	237C>T	Leu79Leu	POP_autocycler_00319	PA0321	aphB	acetylpolyamine aminohydrolase	0	1	0.2500	0.0000	0.5000
-contig_1	349790	snp	A	G	CDS	-	395/930	132/309	missense_variant	MODERATE	395A>G	Val132Ala	POP_autocycler_00323	PA0325		ABC transporter permease	0	1	0.2500	0.0000	0.5000
-contig_1	360145	snp	C	T	CDS	+	1046/1272	349/423	missense_variant	MODERATE	1046C>T	Ala349Val	POP_autocycler_00332	PA0333		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	362484	snp	A	G	CDS	-	269/654	90/217	missense_variant	MODERATE	269A>G	Leu90Pro	POP_autocycler_00335	PA0335		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	376889	snp	C	T	CDS	+	935/1095	312/364	missense_variant	MODERATE	935C>T	Ala312Val	POP_autocycler_00348	PA0348		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	376973	snp	G	A	CDS	+	1019/1095	340/364	missense_variant	MODERATE	1019G>A	Arg340His	POP_autocycler_00348	PA0348		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	380087	snp	C	T	CDS	-	602/1386	201/461	missense_variant	MODERATE	602C>T	Gly201Asp	POP_autocycler_00352	PA0352		transporter	0	1	0.2500	0.0000	0.5000
-contig_1	393613	snp	G	A	CDS	-	92/1596	31/531	missense_variant	MODERATE	92G>A	Ala31Val	POP_autocycler_00364	PA0364		oxidoreductase	0	1	0.2500	0.0000	0.5000
+CHR	POS	TYPE	REF	ALT	FTYPE	STRAND	NT_POS	AA_POS	EFFECT	IMPACT	NT_CHANGE	AA_CHANGE	ID	LOCUS_TAG	GENE	PRODUCT	FRQ	V1_CT	V1_FRQ	V2_CT	V2_FRQ
+contig_1	9748	snp	C	T	CDS	+	1469/1617	490/538	missense_variant	MODERATE	1469C>T	Ala490Val	POP_autocycler_00007	PA0007		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	14330	del	GCC	G	CDS	+	578/888	193/295	frameshift_variant	HIGH	578_579delCC	Pro193fs	POP_autocycler_00011	PA0011		lipid A biosynthesis lauroyl acyltransferase	0.2500	0	0.0000	1	0.5000
+contig_1	15784	snp	C	T	CDS	+	645/654	215/217	synonymous_variant	LOW	645C>T	Ser215Ser	POP_autocycler_00013	PA0013		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	16008	snp	C	T	CDS	-	124/273	42/90	missense_variant	MODERATE	124C>T	Ala42Thr	POP_autocycler_00014	PA0014		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	26980	snp	C	T	CDS	+	746/825	249/274	missense_variant	MODERATE	746C>T	Ala249Val	POP_autocycler_00025	PA0025	aroE	shikimate dehydrogenase	0.2500	0	0.0000	1	0.5000
+contig_1	28382	snp	C	T	CDS	+	246/1287	82/428	synonymous_variant	LOW	246C>T	Arg82Arg	POP_autocycler_00027	PA0027		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	51475	del	CG	C	CDS	+	9045/10605	3015/3534	frameshift_variant	HIGH	9045delG	Leu3016fs	POP_autocycler_00042	PA0041		hemagglutinin	0.2500	0	0.0000	1	0.5000
+contig_1	55401	del	AG	A					intergenic_region	MODIFIER	55402delG			POP_autocycler_00043-POP_autocycler_00044			0.5000	0	0.0000	2	1.0000
+contig_1	71345	snp	C	T	CDS	-	135/507	45/168	synonymous_variant	LOW	135C>T	Arg45Arg	POP_autocycler_00060	PA0055		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	78779	del	CG	C	CDS	-	161/666	54/221	frameshift_variant	HIGH	161delG	Pro54fs	POP_autocycler_00070	PA0065		5'-nucleotidase	0.2500	0	0.0000	1	0.5000
+contig_1	80874	snp	T	C	CDS	+	1322/2046	441/681	missense_variant	MODERATE	1322T>C	Val441Ala	POP_autocycler_00072	PA0067	prlC	oligopeptidase A	0.2500	0	0.0000	1	0.5000
+contig_1	101321	snp	A	G	CDS	+	361/1035	121/344	missense_variant	MODERATE	361A>G	Thr121Ala	POP_autocycler_00087	PA0082	tssA	hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	101736	del	AG	A	CDS	+	782/1035	261/344	frameshift_variant	HIGH	782delG	Gly261fs	POP_autocycler_00087	PA0082	tssA	hypothetical protein	0.3333	0	0.0000	1	1.0000
+contig_1	113316	snp	C	T	CDS	+	1513/1941	505/646	missense_variant	MODERATE	1513C>T	Arg505Cys	POP_autocycler_00096	PA0091	vgrG	type VI secretion system protein VgrG	0.2500	0	0.0000	1	0.5000
+contig_1	124860	del	GAT	G	CDS	+	373/729	125/242	frameshift_variant	HIGH	373_374delAT	Met125fs	POP_autocycler_00107	PA0102		carbonic anhydrase	0.2500	1	0.5000	0	0.0000
+contig_1	138236	snp	C	T	CDS	+	371/729	124/242	missense_variant	MODERATE	371C>T	Ala124Val	POP_autocycler_00122	PA0117		short-chain dehydrogenase	0.2500	0	0.0000	1	0.5000
+contig_1	166501	snp	C	T					intergenic_region	MODIFIER	166501C>T			PA0145-PA0146			0.2500	0	0.0000	1	0.5000
+contig_1	176094	snp	G	A	CDS	+	8/606	3/201	missense_variant	MODERATE	8G>A	Arg3His	POP_autocycler_00159	PA0154	pcaG	protocatechuate 3,4-dioxygenase subunit alpha	0.7500	1	0.5000	2	1.0000
+contig_1	178022	snp	G	A	CDS	+	84/1104	28/367	synonymous_variant	LOW	84G>A	Leu28Leu	POP_autocycler_00161	PA0156		resistance-nodulation-cell division (RND) efflux	0.2500	0	0.0000	1	0.5000
+contig_1	189736	ins	C	CG	CDS	+	40/837	14/278	frameshift_variant	HIGH	39dupG	Leu14fs	POP_autocycler_00170	PA0165		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	193060	snp	T	C	CDS	+	106/591	36/196	missense_variant	MODERATE	106T>C	Phe36Leu	POP_autocycler_00173	PA0168		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	197208	snp	A	G	CDS	-	128/1992	43/663	missense_variant	MODERATE	128A>G	Leu43Pro	POP_autocycler_00177	PA0172	siaA	hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	203299	snp	A	G	CDS	-	1364/1929	455/642	missense_variant	MODERATE	1364A>G	Leu455Pro	POP_autocycler_00183	PA0178		two-component sensor	0.2500	0	0.0000	1	0.5000
+contig_1	215744	snp	C	T	CDS	+	518/882	173/293	missense_variant	MODERATE	518C>T	Pro173Leu	POP_autocycler_00193	PA0188		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	222424	snp	A	G	CDS	+	244/903	82/300	missense_variant	MODERATE	244A>G	Thr82Ala	POP_autocycler_00198	PA0193		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	231236	snp	G	A					intergenic_region	MODIFIER	231236G>A			PA0201-PA0208			0.2500	1	0.5000	0	0.0000
+contig_1	237707	ins	C	CG	CDS	+	274/405	92/134	frameshift_variant	HIGH	273dupG	Pro92fs	POP_autocycler_00215	PA0215	madL	malonate transporter MadL	0.2500	0	0.0000	1	0.5000
+contig_1	245993	snp	A	G	CDS	+	200/1059	67/352	missense_variant	MODERATE	200A>G	Tyr67Cys	POP_autocycler_00222	PA0222		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	250617	snp	C	T	CDS	+	273/783	91/260	synonymous_variant	LOW	273C>T	Gly91Gly	POP_autocycler_00227	PA0227	catJ	CoA transferase subunit B	0.2500	0	0.0000	1	0.5000
+contig_1	263315	snp	T	C	CDS	+	597/816	199/271	synonymous_variant	LOW	597T>C	Arg199Arg	POP_autocycler_00238	PA0238		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	265050	del	GGC	G	CDS	-	787/1251	263/416	frameshift_variant	HIGH	787_788delGC	Ala263fs	POP_autocycler_00240	PA0240		porin	0.2500	0	0.0000	1	0.5000
+contig_1	286592	snp	C	T					intergenic_region	MODIFIER	286592C>T			PA0266-PA0267			0.3333	0	0.0000	1	1.0000
+contig_1	286703	ins	G	GGGC					intergenic_region	MODIFIER	286703_286704insGGC			PA0266-PA0267			0.2500	1	0.5000	0	0.0000
+contig_1	303304	snp	C	T	CDS	-	1370/2283	457/760	missense_variant	MODERATE	1370C>T	Ser457Asn	POP_autocycler_00279	PA0285		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	315354	snp	A	G	CDS	-	423/666	141/221	synonymous_variant	LOW	423A>G	Arg141Arg	POP_autocycler_00288	PA0294	aguR	transcriptional regulator AguR	0.2500	0	0.0000	1	0.5000
+contig_1	316948	snp	A	G					intergenic_region	MODIFIER	316948A>G			PA0295-PA0296			0.2500	0	0.0000	1	0.5000
+contig_1	318684	del	GA	G					intergenic_region	MODIFIER	318685delA			PA0296-PA0297			0.2500	0	0.0000	1	0.5000
+contig_1	319645	snp	A	G	CDS	+	42/1359	14/452	synonymous_variant	LOW	42A>G	Glu14Glu	POP_autocycler_00293	PA0298	spuB	glutamine synthetase	0.2500	0	0.0000	1	0.5000
+contig_1	321258	snp	C	T	CDS	+	231/1371	77/456	synonymous_variant	LOW	231C>T	Ala77Ala	POP_autocycler_00294	PA0299	spuC	aminotransferase	0.2500	0	0.0000	1	0.5000
+contig_1	329616	snp	C	T	CDS	-	1152/2388	384/795	synonymous_variant	LOW	1152C>T	Lys384Lys	POP_autocycler_00300	PA0305		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	333654	del	CG	C	CDS	+	457/942	153/313	frameshift_variant	HIGH	457delG	Ala153fs	POP_autocycler_00304	PA0308		hypothetical protein	0.5000	0	0.0000	2	1.0000
+contig_1	335025	snp	T	C					intergenic_region	MODIFIER	335025T>C			PA0309-PA0310			0.2500	0	0.0000	1	0.5000
+contig_1	335140	snp	C	T	CDS	+	105/630	35/209	synonymous_variant	LOW	105C>T	Thr35Thr	POP_autocycler_00306	PA0310		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	340666	del	CG	C					intergenic_region	MODIFIER	340667delG			PA0316-PA0317			0.2500	0	0.0000	1	0.5000
+contig_1	343296	snp	A	G	CDS	+	230/933	77/310	missense_variant	MODERATE	230A>G	Asp77Gly	POP_autocycler_00317	PA0319		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	345312	snp	C	T	CDS	-	237/1035	79/344	synonymous_variant	LOW	237C>T	Leu79Leu	POP_autocycler_00319	PA0321	aphB	acetylpolyamine aminohydrolase	0.2500	0	0.0000	1	0.5000
+contig_1	349790	snp	A	G	CDS	-	395/930	132/309	missense_variant	MODERATE	395A>G	Val132Ala	POP_autocycler_00323	PA0325		ABC transporter permease	0.2500	0	0.0000	1	0.5000
+contig_1	360145	snp	C	T	CDS	+	1046/1272	349/423	missense_variant	MODERATE	1046C>T	Ala349Val	POP_autocycler_00332	PA0333		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	362484	snp	A	G	CDS	-	269/654	90/217	missense_variant	MODERATE	269A>G	Leu90Pro	POP_autocycler_00335	PA0335		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	376889	snp	C	T	CDS	+	935/1095	312/364	missense_variant	MODERATE	935C>T	Ala312Val	POP_autocycler_00348	PA0348		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	376973	snp	G	A	CDS	+	1019/1095	340/364	missense_variant	MODERATE	1019G>A	Arg340His	POP_autocycler_00348	PA0348		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	380087	snp	C	T	CDS	-	602/1386	201/461	missense_variant	MODERATE	602C>T	Gly201Asp	POP_autocycler_00352	PA0352		transporter	0.2500	0	0.0000	1	0.5000
+contig_1	393613	snp	G	A	CDS	-	92/1596	31/531	missense_variant	MODERATE	92G>A	Ala31Val	POP_autocycler_00364	PA0364		oxidoreductase	0.2500	0	0.0000	1	0.5000

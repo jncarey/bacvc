@@ -1,14 +1,14 @@
-CHR	POS	TYPE	REF	ALT	FTYPE	STRAND	NT_POS	AA_POS	EFFECT	IMPACT	NT_CHANGE	AA_CHANGE	ID	LOCUS_TAG	GENE	PRODUCT	PR_CT	PO_CT	FRQ	PR_FRQ	PO_FRQ
-contig_1	14330	del	GCC	G	CDS	+	578/888	193/295	frameshift_variant	HIGH	578_579delCC	Pro193fs	POP_autocycler_00011	PA0011		lipid A biosynthesis lauroyl acyltransferase	0	1	0.2500	0.0000	0.5000
-contig_1	51475	del	CG	C	CDS	+	9045/10605	3015/3534	frameshift_variant	HIGH	9045delG	Leu3016fs	POP_autocycler_00042	PA0041		hemagglutinin	0	1	0.2500	0.0000	0.5000
-contig_1	55401	del	AG	A					intergenic_region	MODIFIER	55402delG			POP_autocycler_00043-POP_autocycler_00044			0	2	0.5000	0.0000	1.0000
-contig_1	78779	del	CG	C	CDS	-	161/666	54/221	frameshift_variant	HIGH	161delG	Pro54fs	POP_autocycler_00070	PA0065		5'-nucleotidase	0	1	0.2500	0.0000	0.5000
-contig_1	101736	del	AG	A	CDS	+	782/1035	261/344	frameshift_variant	HIGH	782delG	Gly261fs	POP_autocycler_00087	PA0082	tssA	hypothetical protein	0	1	0.3333	0.0000	1.0000
-contig_1	124860	del	GAT	G	CDS	+	373/729	125/242	frameshift_variant	HIGH	373_374delAT	Met125fs	POP_autocycler_00107	PA0102		carbonic anhydrase	1	0	0.2500	0.5000	0.0000
-contig_1	189736	ins	C	CG	CDS	+	40/837	14/278	frameshift_variant	HIGH	39dupG	Leu14fs	POP_autocycler_00170	PA0165		hypothetical protein	0	1	0.2500	0.0000	0.5000
-contig_1	237707	ins	C	CG	CDS	+	274/405	92/134	frameshift_variant	HIGH	273dupG	Pro92fs	POP_autocycler_00215	PA0215	madL	malonate transporter MadL	0	1	0.2500	0.0000	0.5000
-contig_1	265050	del	GGC	G	CDS	-	787/1251	263/416	frameshift_variant	HIGH	787_788delGC	Ala263fs	POP_autocycler_00240	PA0240		porin	0	1	0.2500	0.0000	0.5000
-contig_1	286703	ins	G	GGGC					intergenic_region	MODIFIER	286703_286704insGGC			PA0266-PA0267			1	0	0.2500	0.5000	0.0000
-contig_1	318684	del	GA	G					intergenic_region	MODIFIER	318685delA			PA0296-PA0297			0	1	0.2500	0.0000	0.5000
-contig_1	333654	del	CG	C	CDS	+	457/942	153/313	frameshift_variant	HIGH	457delG	Ala153fs	POP_autocycler_00304	PA0308		hypothetical protein	0	2	0.5000	0.0000	1.0000
-contig_1	340666	del	CG	C					intergenic_region	MODIFIER	340667delG			PA0316-PA0317			0	1	0.2500	0.0000	0.5000
+CHR	POS	TYPE	REF	ALT	FTYPE	STRAND	NT_POS	AA_POS	EFFECT	IMPACT	NT_CHANGE	AA_CHANGE	ID	LOCUS_TAG	GENE	PRODUCT	FRQ	V1_CT	V1_FRQ	V2_CT	V2_FRQ
+contig_1	14330	del	GCC	G	CDS	+	578/888	193/295	frameshift_variant	HIGH	578_579delCC	Pro193fs	POP_autocycler_00011	PA0011		lipid A biosynthesis lauroyl acyltransferase	0.2500	0	0.0000	1	0.5000
+contig_1	51475	del	CG	C	CDS	+	9045/10605	3015/3534	frameshift_variant	HIGH	9045delG	Leu3016fs	POP_autocycler_00042	PA0041		hemagglutinin	0.2500	0	0.0000	1	0.5000
+contig_1	55401	del	AG	A					intergenic_region	MODIFIER	55402delG			POP_autocycler_00043-POP_autocycler_00044			0.5000	0	0.0000	2	1.0000
+contig_1	78779	del	CG	C	CDS	-	161/666	54/221	frameshift_variant	HIGH	161delG	Pro54fs	POP_autocycler_00070	PA0065		5'-nucleotidase	0.2500	0	0.0000	1	0.5000
+contig_1	101736	del	AG	A	CDS	+	782/1035	261/344	frameshift_variant	HIGH	782delG	Gly261fs	POP_autocycler_00087	PA0082	tssA	hypothetical protein	0.3333	0	0.0000	1	1.0000
+contig_1	124860	del	GAT	G	CDS	+	373/729	125/242	frameshift_variant	HIGH	373_374delAT	Met125fs	POP_autocycler_00107	PA0102		carbonic anhydrase	0.2500	1	0.5000	0	0.0000
+contig_1	189736	ins	C	CG	CDS	+	40/837	14/278	frameshift_variant	HIGH	39dupG	Leu14fs	POP_autocycler_00170	PA0165		hypothetical protein	0.2500	0	0.0000	1	0.5000
+contig_1	237707	ins	C	CG	CDS	+	274/405	92/134	frameshift_variant	HIGH	273dupG	Pro92fs	POP_autocycler_00215	PA0215	madL	malonate transporter MadL	0.2500	0	0.0000	1	0.5000
+contig_1	265050	del	GGC	G	CDS	-	787/1251	263/416	frameshift_variant	HIGH	787_788delGC	Ala263fs	POP_autocycler_00240	PA0240		porin	0.2500	0	0.0000	1	0.5000
+contig_1	286703	ins	G	GGGC					intergenic_region	MODIFIER	286703_286704insGGC			PA0266-PA0267			0.2500	1	0.5000	0	0.0000
+contig_1	318684	del	GA	G					intergenic_region	MODIFIER	318685delA			PA0296-PA0297			0.2500	0	0.0000	1	0.5000
+contig_1	333654	del	CG	C	CDS	+	457/942	153/313	frameshift_variant	HIGH	457delG	Ala153fs	POP_autocycler_00304	PA0308		hypothetical protein	0.5000	0	0.0000	2	1.0000
+contig_1	340666	del	CG	C					intergenic_region	MODIFIER	340667delG			PA0316-PA0317			0.2500	0	0.0000	1	0.5000

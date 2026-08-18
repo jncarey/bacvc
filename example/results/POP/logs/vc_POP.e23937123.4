@@ -38,16 +38,16 @@ Duplication rate: 8.90695%
 
 Insert size peak (evaluated by paired-end reads): 156
 
-JSON report: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB4A8/POPpoB4A8.fastp.json
-HTML report: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB4A8/POPpoB4A8.fastp.html
+JSON report: /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B4A8/POP_V2_B4A8.fastp.json
+HTML report: /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B4A8/POP_V2_B4A8.fastp.html
 
-fastp --in1 /net/feder/vol1/project/pseudomonas_selection/vc/data/allreads/POPpost/POPpoB4A8_1.fastq.gz --in2 /net/feder/vol1/project/pseudomonas_selection/vc/data/allreads/POPpost/POPpoB4A8_2.fastq.gz --out1 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB4A8/POPpoB4A8_R1.trimmed.fastq.gz --out2 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB4A8/POPpoB4A8_R2.trimmed.fastq.gz --length_required 50 --json /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB4A8/POPpoB4A8.fastp.json --html /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB4A8/POPpoB4A8.fastp.html --thread 1 
+fastp --in1 /net/feder/vol1/home/jncarey/repos/bacvc/data/allreads/POPpost/POP_V2_B4A8_1.fastq.gz --in2 /net/feder/vol1/home/jncarey/repos/bacvc/data/allreads/POPpost/POP_V2_B4A8_2.fastq.gz --out1 /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B4A8/POP_V2_B4A8_R1.trimmed.fastq.gz --out2 /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B4A8/POP_V2_B4A8_R2.trimmed.fastq.gz --length_required 50 --json /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B4A8/POP_V2_B4A8.fastp.json --html /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B4A8/POP_V2_B4A8.fastp.html --thread 1 
 fastp v1.0.1, time used: 2 seconds
 [M::bwa_idx_load_from_disk] read 0 ALT contigs
 [M::process] read 74622 sequences (10000076 bp)...
 [samclip] samclip 0.4.0 by Torsten Seemann (@torstenseemann)
-[samclip] Loading: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa.fai
-[samclip] Found 1 sequences in /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa.fai
+[samclip] Loading: /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.fa.fai
+[samclip] Found 1 sequences in /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.fa.fai
 [M::process] read 74306 sequences (10000232 bp)...
 [M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (1, 35996, 4, 0)
 [M::mem_pestat] skip orientation FF as there are not enough pairs
@@ -58,7 +58,7 @@ fastp v1.0.1, time used: 2 seconds
 [M::mem_pestat] low and high boundaries for proper pairs: (1, 620)
 [M::mem_pestat] skip orientation RF as there are not enough pairs
 [M::mem_pestat] skip orientation RR as there are not enough pairs
-[M::mem_process_seqs] Processed 74622 reads in 2.786 CPU sec, 2.636 real sec
+[M::mem_process_seqs] Processed 74622 reads in 2.444 CPU sec, 2.305 real sec
 [M::process] read 3680 sequences (498162 bp)...
 [M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (2, 35805, 7, 0)
 [M::mem_pestat] skip orientation FF as there are not enough pairs
@@ -69,7 +69,7 @@ fastp v1.0.1, time used: 2 seconds
 [M::mem_pestat] low and high boundaries for proper pairs: (1, 630)
 [M::mem_pestat] skip orientation RF as there are not enough pairs
 [M::mem_pestat] skip orientation RR as there are not enough pairs
-[M::mem_process_seqs] Processed 74306 reads in 2.787 CPU sec, 2.770 real sec
+[M::mem_process_seqs] Processed 74306 reads in 2.456 CPU sec, 2.417 real sec
 [samclip] Processed 100000 records...
 [M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (0, 1776, 0, 0)
 [M::mem_pestat] skip orientation FF as there are not enough pairs
@@ -80,13 +80,13 @@ fastp v1.0.1, time used: 2 seconds
 [M::mem_pestat] low and high boundaries for proper pairs: (1, 636)
 [M::mem_pestat] skip orientation RF as there are not enough pairs
 [M::mem_pestat] skip orientation RR as there are not enough pairs
-[M::mem_process_seqs] Processed 3680 reads in 0.241 CPU sec, 0.240 real sec
+[M::mem_process_seqs] Processed 3680 reads in 0.194 CPU sec, 0.177 real sec
 [main] Version: 0.7.18-r1243-dirty
-[main] CMD: bwa mem[samclip] Total SAM records 152886, removed 3073, allowed 1234, passed 149813
- -t[samclip] Header contained 4 lines
- 1[samclip] Done.
- -R @RG\tID:POPpoB4A8\tSM:POPpoB4A8 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB4A8/POPpoB4A8_R1.trimmed.fastq.gz /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB4A8/POPpoB4A8_R2.trimmed.fastq.gz
-[main] Real time: 6.158 sec; CPU: 5.942 sec
+[samclip] Total SAM records 152886, removed 3073, allowed 1234, passed 149813
+[main] CMD:[samclip] Header contained 4 lines
+ bwa[samclip] Done.
+ mem -t 1 -R @RG\tID:POP_V2_B4A8\tSM:POP_V2_B4A8 /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.fa /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B4A8/POP_V2_B4A8_R1.trimmed.fastq.gz /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B4A8/POP_V2_B4A8_R2.trimmed.fastq.gz
+[main] Real time: 5.106 sec; CPU: 5.231 sec
 COMMAND: samtools markdup -r -s - -
 READ: 149813
 WRITTEN: 124909
@@ -113,7 +113,7 @@ options:     input VCF file                                  -
          [n] no fail on reference inconsistency              false
          [q] quiet                                           false
          [d] debug                                           false
-         [r] reference FASTA file                            /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa
+         [r] reference FASTA file                            /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.fa
 
 
 stats: biallelic

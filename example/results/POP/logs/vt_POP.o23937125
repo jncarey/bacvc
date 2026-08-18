@@ -1,17 +1,18 @@
 === Generating variant tables for POP ===
   Reference: POP_autocycler
-  Canonical: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/aln/POP.merged.vcf.gz
-  Output:    /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/pop_tables
+  Canonical: /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/aln/POP.merged.vcf.gz
+  Output:    /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/pop_tables
   [1/2] bcftools norm -m- | snpEff ann...
   [2/2] generating tables...
 Population: POP
-Canonical VCF: /tmp/22617343.1.feder-short.q/vt-POP-BT77MP/POP.biallelic.annot.vcf
-Loading GFF: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.gff
+Canonical VCF: /tmp/23937125.1.feder-short.q/vt-POP-L7lj2i/POP.biallelic.annot.vcf
+Loading GFF: /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.gff
   Loaded 5827 locus tags from GFF
 Reading genotypes/TYPE/annotation from canonical VCF...
   Total unique variants: 56
 Found 4 isolates in POP.biallelic.annot.vcf
-  PR isolates: 2, PO isolates: 2
+  V1: 2 isolate(s)
+  V2: 2 isolate(s)
   Variants with at least one ALT call: 53 / 56
   Wrote all variants: var.annot.tab (53 variants)
   SNPs: 40

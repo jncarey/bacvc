@@ -1,6 +1,0 @@
-=== Generating variant tables for POP ===
-  Reference: POP_autocycler
-  Canonical: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/aln/POP.merged.vcf.gz
-  Output:    /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/pop_tables
-WARNING: canonical VCF not found: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/aln/POP.merged.vcf.gz
-  Run 04_run_generate_variant_vcf.sh POP first. Skipping.

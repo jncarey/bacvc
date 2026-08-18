@@ -38,17 +38,17 @@ Duplication rate: 10.8376%
 
 Insert size peak (evaluated by paired-end reads): 208
 
-JSON report: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7.fastp.json
-HTML report: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7.fastp.html
+JSON report: /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B1G7/POP_V2_B1G7.fastp.json
+HTML report: /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B1G7/POP_V2_B1G7.fastp.html
 
-fastp --in1 /net/feder/vol1/project/pseudomonas_selection/vc/data/allreads/POPpost/POPpoB1G7_1.fastq.gz --in2 /net/feder/vol1/project/pseudomonas_selection/vc/data/allreads/POPpost/POPpoB1G7_2.fastq.gz --out1 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7_R1.trimmed.fastq.gz --out2 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7_R2.trimmed.fastq.gz --length_required 50 --json /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7.fastp.json --html /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7.fastp.html --thread 1 
-fastp v1.0.1, time used: 2 seconds
+fastp --in1 /net/feder/vol1/home/jncarey/repos/bacvc/data/allreads/POPpost/POP_V2_B1G7_1.fastq.gz --in2 /net/feder/vol1/home/jncarey/repos/bacvc/data/allreads/POPpost/POP_V2_B1G7_2.fastq.gz --out1 /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B1G7/POP_V2_B1G7_R1.trimmed.fastq.gz --out2 /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B1G7/POP_V2_B1G7_R2.trimmed.fastq.gz --length_required 50 --json /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B1G7/POP_V2_B1G7.fastp.json --html /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B1G7/POP_V2_B1G7.fastp.html --thread 1 
+fastp v1.0.1, time used: 1 seconds
 [M::bwa_idx_load_from_disk] read 0 ALT contigs
 [M::process] read 70402 sequences (10000038 bp)...
-[samclip] samclip 0.4.0 by Torsten Seemann (@torstenseemann)
-[samclip] Loading: /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa.fai
-[samclip] Found 1 sequences in /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa.fai
 [M::process] read 56614 sequences (8087800 bp)...
+[samclip] samclip 0.4.0 by Torsten Seemann (@torstenseemann)
+[samclip] Loading: /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.fa.fai
+[samclip] Found 1 sequences in /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.fa.fai
 [M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (1, 33762, 5, 0)
 [M::mem_pestat] skip orientation FF as there are not enough pairs
 [M::mem_pestat] analyzing insert size distribution for orientation FR...
@@ -58,7 +58,7 @@ fastp v1.0.1, time used: 2 seconds
 [M::mem_pestat] low and high boundaries for proper pairs: (1, 776)
 [M::mem_pestat] skip orientation RF as there are not enough pairs
 [M::mem_pestat] skip orientation RR as there are not enough pairs
-[M::mem_process_seqs] Processed 70402 reads in 2.734 CPU sec, 2.625 real sec
+[M::mem_process_seqs] Processed 70402 reads in 2.418 CPU sec, 2.299 real sec
 [M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (0, 27182, 6, 1)
 [M::mem_pestat] skip orientation FF as there are not enough pairs
 [M::mem_pestat] analyzing insert size distribution for orientation FR...
@@ -68,14 +68,14 @@ fastp v1.0.1, time used: 2 seconds
 [M::mem_pestat] low and high boundaries for proper pairs: (1, 792)
 [M::mem_pestat] skip orientation RF as there are not enough pairs
 [M::mem_pestat] skip orientation RR as there are not enough pairs
-[M::mem_process_seqs] Processed 56614 reads in 2.269 CPU sec, 2.259 real sec
+[M::mem_process_seqs] Processed 56614 reads in 2.004 CPU sec, 1.976 real sec
 [samclip] Processed 100000 records...
 [main] Version: 0.7.18-r1243-dirty
-[main] CMD: bwa mem -t 1 -R @RG\tID:POPpoB1G7\tSM:POPpoB1G7[samclip] Total SAM records 127153, removed 2308, allowed 1111, passed 124845
- /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7_R1.trimmed.fastq.gz[samclip] Header contained 4 lines
- /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/trimmed_reads/POPpoB1G7/POPpoB1G7_R2.trimmed.fastq.gz[samclip] Done.
-
-[main] Real time: 5.493 sec; CPU: 5.146 sec
+[main] CMD: bwa mem -t 1[samclip] Total SAM records 127153, removed 2308, allowed 1111, passed 124845
+ -R[samclip] Header contained 4 lines
+ @RG\tID:POP_V2_B1G7\tSM:POP_V2_B1G7[samclip] Done.
+ /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.fa /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B1G7/POP_V2_B1G7_R1.trimmed.fastq.gz /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/trimmed_reads/POP_V2_B1G7/POP_V2_B1G7_R2.trimmed.fastq.gz
+[main] Real time: 4.525 sec; CPU: 4.559 sec
 COMMAND: samtools markdup -r -s - -
 READ: 124845
 WRITTEN: 102994
@@ -102,7 +102,7 @@ options:     input VCF file                                  -
          [n] no fail on reference inconsistency              false
          [q] quiet                                           false
          [d] debug                                           false
-         [r] reference FASTA file                            /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa
+         [r] reference FASTA file                            /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.fa
 
 
 stats: biallelic

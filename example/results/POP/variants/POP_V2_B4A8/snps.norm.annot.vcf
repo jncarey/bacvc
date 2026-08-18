@@ -1,11 +1,11 @@
 ##fileformat=VCFv4.2
 ##FILTER=<ID=PASS,Description="All filters passed">
-##fileDate=20260722
+##fileDate=20260818
 ##source=freeBayes v1.3.6
-##reference=/net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa
+##reference=/net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.fa
 ##contig=<ID=contig_1,length=6444197>
 ##phasing=none
-##commandline="freebayes -p 2 -P 0 -C 2 -F 0.05 --min-coverage 10 --min-repeat-entropy 1.0 -q 13 -m 60 --strict-vcf -f /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/reference/ref.fa /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/variants/POPpoB4A8/POPpoB4A8.bam"
+##commandline="freebayes -p 2 -P 0 -C 2 -F 0.05 --min-coverage 10 --min-repeat-entropy 1.0 -q 13 -m 60 --strict-vcf -f /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/reference/ref.fa /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/variants/POP_V2_B4A8/POP_V2_B4A8.bam"
 ##INFO=<ID=DP,Number=1,Type=Integer,Description="Total read depth at the locus">
 ##INFO=<ID=RO,Number=1,Type=Integer,Description="Count of full observations of the reference haplotype.">
 ##INFO=<ID=AO,Number=A,Type=Integer,Description="Count of full observations of this alternate haplotype.">
@@ -21,15 +21,15 @@
 ##FORMAT=<ID=AO,Number=A,Type=Integer,Description="Alternate allele observation count">
 ##FORMAT=<ID=QA,Number=A,Type=Integer,Description="Sum of quality of the alternate observations">
 ##bcftools_viewVersion=1.21+htslib-1.21
-##bcftools_viewCommand=view --include QUAL>=100 /net/feder/vol1/project/pseudomonas_selection/vc/results/populations/POP/variants/POPpoB4A8/snps.raw.vcf; Date=Wed Jul 22 10:29:50 2026
+##bcftools_viewCommand=view --include QUAL>=100 /net/feder/vol1/home/jncarey/repos/bacvc/results/populations/POP/variants/POP_V2_B4A8/snps.raw.vcf; Date=Tue Aug 18 16:41:55 2026
 ##bcftools_annotateVersion=1.21+htslib-1.21
-##bcftools_annotateCommand=annotate --remove ^INFO/TYPE,^INFO/DP,^INFO/RO,^INFO/AO,^INFO/AB,^FORMAT/GT,^FORMAT/DP,^FORMAT/RO,^FORMAT/AO,^FORMAT/QR,^FORMAT/QA,^FORMAT/GL; Date=Wed Jul 22 10:29:50 2026
+##bcftools_annotateCommand=annotate --remove ^INFO/TYPE,^INFO/DP,^INFO/RO,^INFO/AO,^INFO/AB,^FORMAT/GT,^FORMAT/DP,^FORMAT/RO,^FORMAT/AO,^FORMAT/QR,^FORMAT/QA,^FORMAT/GL; Date=Tue Aug 18 16:41:55 2026
 ##SnpEffVersion="5.0e (build 2021-03-09 06:01), by Pablo Cingolani"
 ##SnpEffCmd="SnpEff  -noStats -no-downstream -no-upstream -no-utr POP_autocycler "
 ##INFO=<ID=ANN,Number=.,Type=String,Description="Functional annotations: 'Allele | Annotation | Annotation_Impact | Gene_Name | Gene_ID | Feature_Type | Feature_ID | Transcript_BioType | Rank | HGVS.c | HGVS.p | cDNA.pos / cDNA.length | CDS.pos / CDS.length | AA.pos / AA.length | Distance | ERRORS / WARNINGS / INFO' ">
 ##INFO=<ID=LOF,Number=.,Type=String,Description="Predicted loss of function effects for this variant. Format: 'Gene_Name | Gene_ID | Number_of_transcripts_in_gene | Percent_of_transcripts_affected'">
 ##INFO=<ID=NMD,Number=.,Type=String,Description="Predicted nonsense mediated decay effects for this variant. Format: 'Gene_Name | Gene_ID | Number_of_transcripts_in_gene | Percent_of_transcripts_affected'">
-#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	POPpoB4A8
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	POP_V2_B4A8
 contig_1	9748	.	C	T	1159.3	.	AB=0;AO=39;DP=39;QA=1326;QR=0;RO=0;TYPE=snp;ANN=T|missense_variant|MODERATE|PA0007|GENE_PA0007|transcript|TRANSCRIPT_PA0007|protein_coding|1/1|c.1469C>T|p.Ala490Val|1469/1617|1469/1617|490/538||	GT:DP:RO:QR:AO:QA:GL	1/1:39:0:0:39:1326:-119.642,-11.7402,0
 contig_1	13783	.	TG	T	1314.49	.	AB=0.892857;AO=50;DP=56;QA=1676;QR=201;RO=6;TYPE=del;ANN=T|frameshift_variant|HIGH|PA0011|GENE_PA0011|transcript|TRANSCRIPT_PA0011|protein_coding|1/1|c.34delG|p.Ala12fs|34/888|34/888|12/295||INFO_REALIGN_3_PRIME	GT:DP:RO:QR:AO:QA:GL	0/1:56:6:201:50:1676:-134.271,0,-1.56183
 contig_1	16008	.	C	T	1360.39	.	AB=0;AO=47;DP=49;QA=1590;QR=60;RO=2;TYPE=snp;ANN=T|missense_variant|MODERATE|PA0014|GENE_PA0014|transcript|TRANSCRIPT_PA0014|protein_coding|1/1|c.124G>A|p.Ala42Thr|124/273|124/273|42/90||	GT:DP:RO:QR:AO:QA:GL	1/1:49:2:60:47:1590:-137.694,-9.05167,0
