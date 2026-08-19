@@ -111,7 +111,7 @@ output for reference, so you can compare without running anything.
 |---|--------|---------|
 | 01 | `bin/01_build_snpeff_db.sh` | Build a snpEff database per reference genome from its `.gbff`/`.fna`. Writes `snpeff/<ref>/` and a shared `snpeff/snpeff.config`. Uses `bin/gbff_to_snpeff_gff.py` to make a flat CDS-only GFF that snpEff and the table generator both consume; that script optionally applies `bin/gene_name_overrides.tsv` if present (cohort-specific locus-tag reconciliation — harmless/no-op for a fresh dataset). |
 | 02 | `bin/02_prepare_reference.sh` | For each population, copy the reference `.fna` to `populations/<POP>/reference/ref.fa`, `bwa index`, `samtools faidx`, copy `genes.gff` → `ref.gff`, symlink the snpEff config, and minimap2-self-align the reference to emit `reference/ref.repeats.bed` (repetitive regions excluded in stage 04). |
-| 03 | `bin/03_worker.sh` | Per-isolate SGE array task: fastp QC → `bwa mem` → `samclip` → `samtools sort/fixmate/markdup` → `freebayes` → normalize + snpEff-annotate (via `config.sh`'s `normalize_annotate_vcf()` bash function — `bcftools view` QUAL filter → `vt normalize` → `bcftools annotate` field cleanup → `snpEff ann`). Output: `populations/<POP>/variants/<sample>/snps.norm.annot.vcf`. `bin/normalize_annotate_vcf.sh`, documented in README.md, is a standalone, parameterized twin of that same function's logic. |
+| 03 | `bin/03_worker.sh` | Per-isolate SGE array task: fastp QC → `bwa mem` → `samclip` → `samtools sort/fixmate/markdup` → `freebayes` → normalize + snpEff-annotate (via `config.sh`'s `normalize_annotate_vcf()` bash function — `bcftools view` QUAL filter → `vt normalize` → `bcftools annotate` field cleanup → `snpEff ann`) → `mosdepth` → `samtools flagstat` → per-isolate QC flag (`qc_flag_isolate.py`, README.md). Output: `populations/<POP>/variants/<sample>/snps.norm.annot.vcf` (+ QC files below). `bin/normalize_annotate_vcf.sh`, documented in README.md, is a standalone, parameterized twin of that same function's logic. |
 | 04a | `bin/04_run_generate_variant_vcf.sh` + `04_generate_variant_vcf.py` | After all workers finish, build the **canonical merged multi-sample VCF** (`aln/<POP>.merged.vcf.gz`) — see README.md's "Population-level site exclusions" for what this step drops and why. Derive the TreeTime VCF (`aln/<POP>.treetime.vcf.gz`, snp/mnp subset) from it. |
 | 04b | `bin/04_run_generate_variant_tables.sh` + `04_generate_variant_tables.py` | Held on 04a. Derive population tables from the same canonical VCF — see README.md's "Variant table semantics". Re-runs snpEff, so the reference's `snpeff.config` entry from stage 01 must be present (the wrapper fails loud otherwise). |
 | 05 | `bin/05_run_generate_snp_alignment.sh` + `05_generate_snp_alignment.py` | Held on 04b. Build the per-population SNP alignment FASTA from `pop_tables/snp.gt.tsv`. |
@@ -149,7 +149,8 @@ All knobs live in `bin/config.sh`:
   (`FB_*`), VCF pre-filter (`FILT_MIN_QUAL`, `MASK_MIN_DP`), table filters
   (`VT_*`), repeat exclusion (`EXCLUDE_REPEATS`, `MINIMAP2_SELFALIGN_OPTS`),
   SNP-site missingness exclusion (`EXCLUDE_HIGH_MISSING_SNP_SITES`,
-  `SNP_SITE_MAX_MISSING_FRAC`).
+  `SNP_SITE_MAX_MISSING_FRAC`), per-isolate QC gate (`MIN_MEAN_DEPTH`,
+  `MIN_MAPPED_PCT` — see README.md's `qc_flag_isolate.py` entry).
 - SGE submission (`MAX_CONCURRENT`, `SGE_MEMORY`, `SGE_WALLTIME`).
 - Cleanup toggles (`REMOVE_TRIMMED`, `REMOVE_BAMS`).
 
@@ -187,6 +188,9 @@ vc/results/                            # ${RESULTS_DIR}
         │   ├── snps.norm.annot.vcf
         │   ├── <sample>.per-base.bed.gz   # mosdepth per-base depth
         │   ├── <sample>.per-base.bed.gz.csi
+        │   ├── <sample>.mosdepth.summary.txt  # mosdepth mean depth (kept, not ephemeral)
+        │   ├── <sample>.flagstat.txt      # samtools flagstat, before BAM cleanup
+        │   ├── <sample>.qc_flag.tsv       # qc_flag_isolate.py verdict
         │   └── .done
         ├── aln/
         │   ├── <POP>.merged.vcf.gz        # canonical merged VCF (all types) +tbi

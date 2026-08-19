@@ -16,10 +16,14 @@
 - group_isolates_by_visit:  splits isolates into groups keyed by visit label
   (V1, V1A, V2, ...) parsed from each isolate's name, shared by the table
   generator and the canonical pass's per-site missingness QC.
+
+- qc_flag_isolate:  per-isolate pass/fail QC from fastp/flagstat/mosdepth
+  output, shared by 03_worker.sh (standalone) and Snakemake orchestration.
 """
 
 import bisect
 import gzip
+import json
 import re
 from collections import defaultdict
 
@@ -174,3 +178,58 @@ def group_isolates_by_visit(patient_id, isolates, log=print):
             log(f"    ... and {len(unmatched) - 5} more")
 
     return dict(groups)
+
+
+# ── Per-isolate QC flagging ──────────────────────────────────────────────────
+# Two independent failure modes that both mean "don't use this isolate":
+#   low_coverage    -- mosdepth mean depth too low, regardless of cause
+#                      (catches both a sequencing failure with tiny yield, and
+#                      a wrong-species/contaminated sample whose reads simply
+#                      don't map even though sequencing yield was normal).
+#   mapping_failure -- samtools flagstat's "primary mapped" % too low; an
+#                      independent, direct signal (also catches a partial
+#                      contamination/mixed culture that still has *some*
+#                      usable depth from the on-target fraction of reads, a
+#                      case low_coverage alone would miss).
+
+_PRIMARY_MAPPED_RE = re.compile(r'^\d+ \+ \d+ primary mapped \(([\d.]+)%')
+
+
+def qc_flag_isolate(isolate, fastp_json_path, flagstat_path, mosdepth_summary_path,
+                     min_mean_depth, min_mapped_pct):
+    """Compute per-isolate QC metrics and pass/fail flags.
+
+    Returns {isolate, bases_after_filter, mean_depth, mapped_pct,
+    low_coverage, mapping_failure}."""
+    with open(fastp_json_path) as f:
+        bases_after_filter = json.load(f)["summary"]["after_filtering"]["total_bases"]
+
+    mapped_pct = None
+    with open(flagstat_path) as f:
+        for line in f:
+            m = _PRIMARY_MAPPED_RE.match(line)
+            if m:
+                mapped_pct = float(m.group(1))
+                break
+    if mapped_pct is None:
+        raise ValueError(f"no 'primary mapped' line found in {flagstat_path}")
+
+    mean_depth = None
+    with open(mosdepth_summary_path) as f:
+        next(f)  # header
+        for line in f:
+            fields = line.rstrip("\n").split("\t")
+            if fields[0] == "total":
+                mean_depth = float(fields[3])
+                break
+    if mean_depth is None:
+        raise ValueError(f"no 'total' row found in {mosdepth_summary_path}")
+
+    return {
+        "isolate": isolate,
+        "bases_after_filter": bases_after_filter,
+        "mean_depth": mean_depth,
+        "mapped_pct": mapped_pct,
+        "low_coverage": mean_depth < min_mean_depth,
+        "mapping_failure": mapped_pct < min_mapped_pct,
+    }

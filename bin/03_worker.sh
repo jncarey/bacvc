@@ -9,6 +9,10 @@
 #   3. freebayes variant calling
 #   4. vt normalize + snpEff annotation
 #   5. mosdepth per-base depth (for low-coverage masking in step 04)
+#   6. samtools flagstat (mapping rate, for the QC gate below)
+#   7. per-isolate QC flag (low_coverage / mapping_failure -- see
+#      pipeline_helpers.qc_flag_isolate; does not stop the pipeline, just
+#      records the verdict for the caller to act on)
 #
 # Usage (SGE array):
 #   Called by run_population.sh; not meant to be run directly.
@@ -98,7 +102,7 @@ fi
 # ===================================================================
 # Step 1: fastp QC
 # ===================================================================
-echo "  [1/5] fastp QC..."
+echo "  [1/7] fastp QC..."
 
 conda run -n "${CONDA_ENV}" \
     fastp \
@@ -112,12 +116,12 @@ conda run -n "${CONDA_ENV}" \
         --thread "${BWA_THREADS}" \
         ${FASTP_EXTRA_OPTS}
 
-echo "  [1/5] fastp done."
+echo "  [1/7] fastp done."
 
 # ===================================================================
 # Step 2: bwa mem -> samclip -> sort -> fixmate -> sort -> markdup
 # ===================================================================
-echo "  [2/5] Alignment (bwa mem + samclip + markdup)..."
+echo "  [2/7] Alignment (bwa mem + samclip + markdup)..."
 
 RG="@RG\tID:${SAMPLE_ID}\tSM:${SAMPLE_ID}"
 
@@ -135,7 +139,7 @@ bwa mem \
 
 samtools index "${BAM}"
 
-echo "  [2/5] Alignment done. BAM: ${BAM}"
+echo "  [2/7] Alignment done. BAM: ${BAM}"
 
 # Clean up trimmed reads
 if [[ "${REMOVE_TRIMMED}" == "true" ]]; then
@@ -148,7 +152,7 @@ fi
 # ===================================================================
 # Step 3: freebayes variant calling
 # ===================================================================
-echo "  [3/5] Freebayes variant calling..."
+echo "  [3/7] Freebayes variant calling..."
 
 freebayes \
     -p "${FB_PLOIDY}" \
@@ -164,12 +168,12 @@ freebayes \
     "${BAM}" \
     > "${VAR_DIR}/snps.raw.vcf"
 
-echo "  [3/5] Freebayes done. Raw variants: ${VAR_DIR}/snps.raw.vcf"
+echo "  [3/7] Freebayes done. Raw variants: ${VAR_DIR}/snps.raw.vcf"
 
 # ===================================================================
 # Step 4: Normalize + snpEff annotation
 # ===================================================================
-echo "  [4/5] Normalizing and annotating with snpEff..."
+echo "  [4/7] Normalizing and annotating with snpEff..."
 # No DP filter here: low-coverage variants are retained so the DP decision is
 # made once, at stage 04 (+setGT FMT/DP<VT_MIN_DP mask + mosdepth MASK_MIN_DP
 # mask). The normalize+annotate pipe lives in normalize_annotate_vcf()
@@ -178,12 +182,13 @@ normalize_annotate_vcf \
     "${VAR_DIR}/snps.raw.vcf" "${REF_FA}" "${REF_NAME}" \
     "${VAR_DIR}/snps.norm.annot.vcf"
 
-echo "  [4/5] Annotated VCF: ${VAR_DIR}/snps.norm.annot.vcf"
+echo "  [4/7] Annotated VCF: ${VAR_DIR}/snps.norm.annot.vcf"
 
 # ===================================================================
-# Step 5: Per-base depth (consumed by step 04 for low-coverage masking)
+# Step 5: Per-base depth (consumed by step 04 for low-coverage masking, and
+# by step 7's QC gate for mean depth)
 # ===================================================================
-echo "  [5/5] mosdepth per-base depth..."
+echo "  [5/7] mosdepth per-base depth..."
 
 # mosdepth ships in the pipeline conda env (environment.yml), which is already
 # active here via the snippy conda env.
@@ -193,11 +198,37 @@ mosdepth \
     "${VAR_DIR}/${SAMPLE_ID}" \
     "${BAM}"
 
-# Drop summary/dist files; keep only the per-base bedGraph + index.
-rm -f "${VAR_DIR}/${SAMPLE_ID}.mosdepth.global.dist.txt" \
-      "${VAR_DIR}/${SAMPLE_ID}.mosdepth.summary.txt"
+# Drop the per-base distribution histogram; keep the per-base bedGraph +
+# index (step 04's coverage mask) and summary.txt (step 7's mean depth).
+rm -f "${VAR_DIR}/${SAMPLE_ID}.mosdepth.global.dist.txt"
 
-echo "  [5/5] Depth: ${VAR_DIR}/${SAMPLE_ID}.per-base.bed.gz"
+echo "  [5/7] Depth: ${VAR_DIR}/${SAMPLE_ID}.per-base.bed.gz"
+
+# ===================================================================
+# Step 6: samtools flagstat (mapping rate, consumed by step 7's QC gate).
+# Must run before the BAM cleanup below.
+# ===================================================================
+echo "  [6/7] samtools flagstat..."
+
+samtools flagstat "${BAM}" > "${VAR_DIR}/${SAMPLE_ID}.flagstat.txt"
+
+echo "  [6/7] Flagstat: ${VAR_DIR}/${SAMPLE_ID}.flagstat.txt"
+
+# ===================================================================
+# Step 7: Per-isolate QC flag (low_coverage / mapping_failure)
+# ===================================================================
+echo "  [7/7] QC flag..."
+
+python3 "${SCRIPT_DIR}/qc_flag_isolate.py" \
+    --isolate "${SAMPLE_ID}" \
+    --fastp-json "${TRIM_DIR}/${SAMPLE_ID}.fastp.json" \
+    --flagstat "${VAR_DIR}/${SAMPLE_ID}.flagstat.txt" \
+    --mosdepth-summary "${VAR_DIR}/${SAMPLE_ID}.mosdepth.summary.txt" \
+    --min-mean-depth "${MIN_MEAN_DEPTH}" \
+    --min-mapped-pct "${MIN_MAPPED_PCT}" \
+    --out "${VAR_DIR}/${SAMPLE_ID}.qc_flag.tsv"
+
+echo "  [7/7] QC flag: ${VAR_DIR}/${SAMPLE_ID}.qc_flag.tsv"
 
 # ===================================================================
 # Cleanup

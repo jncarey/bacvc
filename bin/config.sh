@@ -69,6 +69,16 @@ FB_MAP_QUAL=60
 # === VCF pre-filter (03_worker.sh, before snpEff) ===
 FILT_MIN_QUAL=100
 
+# === Per-isolate QC gate (step 03, before variant calling) ===
+# An isolate is excluded entirely (never enters freebayes/calling) if EITHER
+# is tripped: mosdepth mean depth < MIN_MEAN_DEPTH (a sequencing failure or a
+# wrong-species/contaminated sample -- both land near-zero depth even when
+# sequencing yield was normal), or samtools flagstat primary-mapped %
+# < MIN_MAPPED_PCT (catches partial contamination that still keeps some
+# on-target depth). See pipeline_helpers.qc_flag_isolate.
+MIN_MEAN_DEPTH=10
+MIN_MAPPED_PCT=90
+
 # === Variant table generation ===
 # VT_MIN_DP is the single DP knob for the whole pipeline. It now feeds three
 # places (all at stage 04, never at stage 03): the mosdepth low-coverage mask

@@ -60,7 +60,7 @@ itself:
 |-------|-----------------------|
 | 01 (snpEff DB) | `build_snpeff_db.sh` (using `gbff_to_snpeff_gff.py`) |
 | 02 (reference prep) | `prepare_reference.sh` |
-| 03 (per-isolate calling) | `normalize_annotate_vcf.sh` (the annotate/normalize half only — your orchestrator runs fastp/bwa/freebayes/mosdepth itself) |
+| 03 (per-isolate calling) | `normalize_annotate_vcf.sh` (the annotate/normalize half only — your orchestrator runs fastp/bwa/freebayes/mosdepth itself); `qc_flag_isolate.py` (per-isolate QC gate) |
 | 04a (merged VCF) | `04_generate_variant_vcf.py` |
 | 04b (variant tables) | `04_generate_variant_tables.py` (also uses `gbff_to_snpeff_gff.py`'s output) |
 | 05 (SNP alignment) | `05_generate_snp_alignment.py` |
@@ -115,6 +115,23 @@ itself:
   once, downstream, via the mosdepth-based masking `04_generate_variant_vcf.py`
   applies.
 
+- **`bin/qc_flag_isolate.py --isolate <name> --fastp-json <path> --flagstat
+  <path> --mosdepth-summary <path> --min-mean-depth <n> --min-mapped-pct <n>
+  --out <path>`** (stage 03) — per-isolate QC gate: writes a one-row TSV with
+  mosdepth mean depth, `samtools flagstat` primary-mapped %, fastp yield, and
+  two independent boolean flags, `low_coverage` and `mapping_failure` (either
+  one means "exclude this isolate from calling"). `low_coverage` catches
+  both a sequencing failure (near-zero yield) and a wrong-species/
+  contaminated sample (normal yield, reads simply don't map) — both land near
+  zero mean depth. `mapping_failure` is an independent, direct signal from
+  the mapped fraction itself, catching partial contamination that still
+  keeps some on-target depth. Requires `<isolate>.flagstat.txt` (`samtools
+  flagstat` on the BAM, before it's cleaned up) and mosdepth's
+  `<isolate>.mosdepth.summary.txt` (mean depth from its `total` row — keep
+  this file; don't delete it as ephemeral mosdepth output). See
+  `pipeline_helpers.qc_flag_isolate` for the underlying logic if calling
+  from Python directly.
+
 - **`bin/04_generate_variant_vcf.py`** (stage 04a; `--help` for full args) — builds the
   **canonical merged multi-sample VCF** from a `bcftools merge
   --missing-to-ref` of every isolate's `+setGT`-masked VCF: drops records
@@ -147,9 +164,9 @@ itself:
   alignment FASTA from `04_generate_variant_tables.py`'s `snp.gt.tsv` output.
 
 - **`bin/pipeline_helpers.py`** — shared logic (callable-mask building,
-  repeat-BED overlap, missing-GT detection, `group_isolates_by_visit`)
-  importable directly if you're doing your own thing in Python rather than
-  shelling out to the scripts above.
+  repeat-BED overlap, missing-GT detection, `group_isolates_by_visit`,
+  `qc_flag_isolate`) importable directly if you're doing your own thing in
+  Python rather than shelling out to the scripts above.
 
 ## Output layout
 
@@ -171,13 +188,16 @@ orchestrator's choice. The tree below illustrates one real layout (pa_promise's
 └── ref.repeats.bed
 
 <isolates_dir>/<isolate>/                # one per isolate
-├── qc/                                  # fastp
-│   └── <isolate>.fastp.{json,html}      # trimmed fastq.gz is typically temp(), removed after alignment
-├── <isolate>.bam (+ .bai)               # typically temp() -- removed once freebayes/mosdepth finish
+├── qc/                                  # fastp + per-isolate QC gate
+│   ├── <isolate>.fastp.{json,html}      # trimmed fastq.gz is typically temp(), removed after alignment
+│   └── <isolate>.qc_flag.tsv            # qc_flag_isolate.py
+├── <isolate>.bam (+ .bai)               # typically temp() -- removed once freebayes/mosdepth/flagstat finish
+├── <isolate>.flagstat.txt               # samtools flagstat on the BAM, before cleanup
 ├── <isolate>.snps.raw.vcf               # freebayes
 ├── <isolate>.snps.norm.annot.vcf        # normalize_annotate_vcf.sh
 ├── <isolate>.setgt.vcf.gz (+ .tbi)      # typically temp() -- removed once the population merge finishes
-└── <isolate>.per-base.bed.gz (+ .csi)   # mosdepth per-base depth
+├── <isolate>.per-base.bed.gz (+ .csi)   # mosdepth per-base depth
+└── <isolate>.mosdepth.summary.txt       # mosdepth mean depth -- keep, don't delete as ephemeral
 
 <population_out_dir>/                    # one per population/patient
 ├── aln/
