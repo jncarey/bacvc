@@ -144,7 +144,7 @@ itself:
   (whatever `build_snpeff_db.sh` above produced).
 
 - **`bin/05_generate_snp_alignment.py`** (stage 05; `--help` for full args) — SNP
-  alignment FASTA from `04_generate_variant_tables.py`'s `snp.gt.tab` output.
+  alignment FASTA from `04_generate_variant_tables.py`'s `snp.gt.tsv` output.
 
 - **`bin/pipeline_helpers.py`** — shared logic (callable-mask building,
   repeat-BED overlap, missing-GT detection, `group_isolates_by_visit`)
@@ -186,10 +186,10 @@ orchestrator's choice. The tree below illustrates one real layout (pa_promise's
 │   ├── <pop>.snp_site_missingness.tsv   # per-site '-' distribution + EXCLUDED flag
 │   └── <pop>.snps.aln.fa                # 05_generate_snp_alignment.py
 └── pop_tables/                          # 04_generate_variant_tables.py
-    ├── var.annot.tab
-    ├── snp.{gt,annot}.tab
-    ├── indel.{gt,annot}.tab
-    └── disruptive.annot.tab
+    ├── var.annot.tsv
+    ├── snp.{gt,annot}.tsv
+    ├── indel.{gt,annot}.tsv
+    └── disruptive.annot.tsv
 ```
 
 `.bam`/`.setgt.vcf.gz` are marked "typically temp()" because that's this
@@ -234,8 +234,8 @@ parses each isolate's real name for a `^<pop_name>_V<visit>_` prefix (e.g.
 `009-007_V1A_10` → visit `V1A`) and buckets it there; isolates whose names
 don't match — wrong population prefix, or no parseable `_V<visit>_` token —
 are excluded from every per-visit frequency column, reported as a
-`WARNING` on stderr (not a hard failure). The annot tables (`var.annot.tab`,
-`snp.annot.tab`, `indel.annot.tab`, `disruptive.annot.tab`) then get one
+`WARNING` on stderr (not a hard failure). The annot tables (`var.annot.tsv`,
+`snp.annot.tsv`, `indel.annot.tsv`, `disruptive.annot.tsv`) then get one
 overall `FRQ` column followed by a `{VISIT}_CT`/`{VISIT}_FRQ` pair **per
 visit label actually present in the data**, sorted alphabetically — so the
 column set differs population to population depending on how many distinct

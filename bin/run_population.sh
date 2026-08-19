@@ -138,8 +138,8 @@ for POP in "${POPS[@]}"; do
             fi
             ;;
         5)
-            [[ -f "${POP_DIR}/pop_tables/snp.gt.tab" ]] \
-                || MISSING+=("${POP_DIR}/pop_tables/snp.gt.tab (run step 04)")
+            [[ -f "${POP_DIR}/pop_tables/snp.gt.tsv" ]] \
+                || MISSING+=("${POP_DIR}/pop_tables/snp.gt.tsv (run step 04)")
             ;;
     esac
     if [[ ${#MISSING[@]} -gt 0 ]]; then

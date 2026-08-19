@@ -22,12 +22,12 @@ Usage:
         [--out-dir PATH]
 
 Outputs:
-  var.annot.tab         all variants with at least one ALT call
-  disruptive.annot.tab  disruptive variants only
-  snp.annot.tab         SNPs/MNPs with at least one ALT call
-  snp.gt.tab            SNP genotype matrix
-  indel.annot.tab       INDELs with at least one ALT call
-  indel.gt.tab          INDEL genotype matrix
+  var.annot.tsv         all variants with at least one ALT call
+  disruptive.annot.tsv  disruptive variants only
+  snp.annot.tsv         SNPs/MNPs with at least one ALT call
+  snp.gt.tsv            SNP genotype matrix
+  indel.annot.tsv       INDELs with at least one ALT call
+  indel.gt.tsv          INDEL genotype matrix
 """
 
 import sys
@@ -466,7 +466,7 @@ def main():
     all_sorted_keys = sorted(called_variants.keys(), key=sort_key)
     write_annot_table(all_sorted_keys, called_variants, var_types, var_annots,
                       isolates, visit_groups, visit_labels,
-                      out_dir / "var.annot.tab", "all variants")
+                      out_dir / "var.annot.tsv", "all variants")
 
     # SNPs: snp/mnp, plus complex variants that are missense/synonymous (substitutions
     # masquerading as complex due to neighboring variation). len(REF)==len(ALT) is
@@ -491,7 +491,7 @@ def main():
     print(f"  SNPs: {len(snp_keys)}")
     write_tables(snp_keys, called_variants, var_types, var_annots,
                  isolates, visit_groups, visit_labels,
-                 out_dir / "snp.gt.tab", out_dir / "snp.annot.tab", "SNPs/MNPs")
+                 out_dir / "snp.gt.tsv", out_dir / "snp.annot.tsv", "SNPs/MNPs")
 
     # INDELs: ins/del/complex, excluding the complex variants reclassified as SNPs
     indel_keys = [k for k in all_sorted_keys
@@ -500,7 +500,7 @@ def main():
     print(f"  INDELs: {len(indel_keys)}")
     write_tables(indel_keys, called_variants, var_types, var_annots,
                  isolates, visit_groups, visit_labels,
-                 out_dir / "indel.gt.tab", out_dir / "indel.annot.tab", "INDELs")
+                 out_dir / "indel.gt.tsv", out_dir / "indel.annot.tsv", "INDELs")
 
     # Disruptive variants
     print("Filtering disruptive variants...")
@@ -508,7 +508,7 @@ def main():
     disruptive_keys = sorted(disruptive.keys(), key=sort_key)
     write_annot_table(disruptive_keys, disruptive, var_types, var_annots,
                       isolates, visit_groups, visit_labels,
-                      out_dir / "disruptive.annot.tab", "disruptive variants")
+                      out_dir / "disruptive.annot.tsv", "disruptive variants")
 
     print("Done!")
 

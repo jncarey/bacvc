@@ -114,7 +114,7 @@ output for reference, so you can compare without running anything.
 | 03 | `bin/03_worker.sh` | Per-isolate SGE array task: fastp QC → `bwa mem` → `samclip` → `samtools sort/fixmate/markdup` → `freebayes` → normalize + snpEff-annotate (via `config.sh`'s `normalize_annotate_vcf()` bash function — `bcftools view` QUAL filter → `vt normalize` → `bcftools annotate` field cleanup → `snpEff ann`). Output: `populations/<POP>/variants/<sample>/snps.norm.annot.vcf`. `bin/normalize_annotate_vcf.sh`, documented in README.md, is a standalone, parameterized twin of that same function's logic. |
 | 04a | `bin/04_run_generate_variant_vcf.sh` + `04_generate_variant_vcf.py` | After all workers finish, build the **canonical merged multi-sample VCF** (`aln/<POP>.merged.vcf.gz`) — see README.md's "Population-level site exclusions" for what this step drops and why. Derive the TreeTime VCF (`aln/<POP>.treetime.vcf.gz`, snp/mnp subset) from it. |
 | 04b | `bin/04_run_generate_variant_tables.sh` + `04_generate_variant_tables.py` | Held on 04a. Derive population tables from the same canonical VCF — see README.md's "Variant table semantics". Re-runs snpEff, so the reference's `snpeff.config` entry from stage 01 must be present (the wrapper fails loud otherwise). |
-| 05 | `bin/05_run_generate_snp_alignment.sh` + `05_generate_snp_alignment.py` | Held on 04b. Build the per-population SNP alignment FASTA from `pop_tables/snp.gt.tab`. |
+| 05 | `bin/05_run_generate_snp_alignment.sh` + `05_generate_snp_alignment.py` | Held on 04b. Build the per-population SNP alignment FASTA from `pop_tables/snp.gt.tsv`. |
 
 Both stage-04 artifacts derive from the single canonical merged VCF, so the
 TreeTime VCF and the tables agree on every shared `(CHR,POS,REF,ALT)` snp/mnp
@@ -194,10 +194,10 @@ vc/results/                            # ${RESULTS_DIR}
         │   ├── <POP>.snp_site_missingness.tsv  # per-site '-' distribution + EXCLUDED flag
         │   └── <POP>.snps.aln.fa          # SNP alignment FASTA (stage 05)
         ├── pop_tables/
-        │   ├── var.annot.tab
-        │   ├── snp.{gt,annot}.tab
-        │   ├── indel.{gt,annot}.tab
-        │   └── disruptive.annot.tab
+        │   ├── var.annot.tsv
+        │   ├── snp.{gt,annot}.tsv
+        │   ├── indel.{gt,annot}.tsv
+        │   └── disruptive.annot.tsv
         └── logs/
 ```
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Generate a per-population SNP alignment FASTA from pop_tables/snp.gt.tab.
+Generate a per-population SNP alignment FASTA from pop_tables/snp.gt.tsv.
 
-Each row of snp.gt.tab is a SNP/MNP site with columns:
+Each row of snp.gt.tsv is a SNP/MNP site with columns:
     CHR  POS  TYPE  REF  ALT  <isolate_1>  <isolate_2>  ...
 where each isolate cell is "0" (REF), "1" (ALT), or "-" (missing).
 
@@ -73,11 +73,11 @@ def write_snp_alignment(gt_tab_path, out_path, pop_name):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Generate a per-population SNP alignment FASTA from snp.gt.tab."
+        description="Generate a per-population SNP alignment FASTA from snp.gt.tsv."
     )
     parser.add_argument("--pop", required=True, help="Population name (e.g. IA04)")
     parser.add_argument("--gt-tab", required=True,
-                        help="Path to pop_tables/snp.gt.tab")
+                        help="Path to pop_tables/snp.gt.tsv")
     parser.add_argument("--out", required=True,
                         help="Output FASTA path (e.g. aln/IA04.snps.aln.fa)")
     args = parser.parse_args()

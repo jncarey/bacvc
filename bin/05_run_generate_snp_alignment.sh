@@ -2,7 +2,7 @@
 #
 # 05_run_generate_snp_alignment.sh
 #
-# Wrapper to build per-population SNP alignment FASTAs from pop_tables/snp.gt.tab.
+# Wrapper to build per-population SNP alignment FASTAs from pop_tables/snp.gt.tsv.
 # Output: ${POP_DIR}/aln/${POP}.snps.aln.fa
 #
 # Usage:
@@ -38,7 +38,7 @@ fi
 
 for POP in "${POPS[@]}"; do
     POP_DIR="$(get_pop_dir "${POP}")"
-    GT_TAB="${POP_DIR}/pop_tables/snp.gt.tab"
+    GT_TAB="${POP_DIR}/pop_tables/snp.gt.tsv"
     ALN_DIR="${POP_DIR}/aln"
     OUT_FA="${ALN_DIR}/${POP}.snps.aln.fa"
 
