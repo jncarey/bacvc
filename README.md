@@ -51,17 +51,30 @@ paths your own project actually uses.
 
 ## Building blocks
 
-Every stage (01–05) has a config.sh-independent entry point, so an external
-orchestrator never needs to reimplement pipeline logic itself.
+Every stage (01–05, matching standalone mode's stage numbers in
+[STANDALONE.md](STANDALONE.md#stages)) has a config.sh-independent entry
+point, so an external orchestrator never needs to reimplement pipeline logic
+itself:
+
+| Stage | Entry point(s) below |
+|-------|-----------------------|
+| 01 (snpEff DB) | `build_snpeff_db.sh` (using `gbff_to_snpeff_gff.py`) |
+| 02 (reference prep) | `prepare_reference.sh` |
+| 03 (per-isolate calling) | `normalize_annotate_vcf.sh` (the annotate/normalize half only — your orchestrator runs fastp/bwa/freebayes/mosdepth itself) |
+| 04a (merged VCF) | `04_generate_variant_vcf.py` |
+| 04b (variant tables) | `04_generate_variant_tables.py` (also uses `gbff_to_snpeff_gff.py`'s output) |
+| 05 (SNP alignment) | `05_generate_snp_alignment.py` |
+| (shared, no stage) | `pipeline_helpers.py` |
 
 - **`bin/gbff_to_snpeff_gff.py <gbff>`** — flat CDS-only GFF from a bakta
-  `.gbff`, printed to stdout. Consumed by both a snpEff database build and
-  `04_generate_variant_tables.py`'s annotation lookup. Optionally applies
-  `bin/gene_name_overrides.tsv` if present (cohort-specific locus-tag
-  reconciliation — harmless/no-op for a fresh dataset).
+  `.gbff`, printed to stdout. Consumed by both a snpEff database build (01)
+  and `04_generate_variant_tables.py`'s annotation lookup (04b). Optionally
+  applies `bin/gene_name_overrides.tsv` if present (cohort-specific
+  locus-tag reconciliation — harmless/no-op for a fresh dataset).
 
-- **`bin/build_snpeff_db.sh <ref_name> <gbff> <fna> <out_datadir>`** — builds
-  one reference's snpEff database under `<out_datadir>/<ref_name>/`
+- **`bin/build_snpeff_db.sh <ref_name> <gbff> <fna> <out_datadir>`**
+  (stage 01) — builds one reference's snpEff database under
+  `<out_datadir>/<ref_name>/`
   (`genes.gff`, `sequences.fa`, snpEff's build artifacts) plus a
   **self-contained** `snpeff.config` covering just that one genome. This is
   the config.sh-free twin of `01_build_snpeff_db.sh`'s per-sample loop body:
@@ -77,7 +90,7 @@ orchestrator never needs to reimplement pipeline logic itself.
   below and to `04_generate_variant_tables.py`.
 
 - **`bin/prepare_reference.sh <ref_fna> <out_dir>
-  [minimap2_selfalign_opts]`** — indexes one reference for alignment:
+  [minimap2_selfalign_opts]`** (stage 02) — indexes one reference for alignment:
   `bwa index` + `samtools faidx` on a copy of `<ref_fna>` at
   `<out_dir>/ref.fa`, plus the self-alignment repeat BED (see "Population-
   level site exclusions" below). Config.sh-free twin of
@@ -88,7 +101,10 @@ orchestrator never needs to reimplement pipeline logic itself.
   they're needed.
 
 - **`bin/normalize_annotate_vcf.sh <raw_vcf> <ref_fa> <ref_name> <out_vcf>
-  <snpeff_config> <snpeff_datadir> <filt_min_qual>`** — normalize +
+  <snpeff_config> <snpeff_datadir> <filt_min_qual>`** (stage 03, the
+  annotate/normalize half only — your orchestrator still runs
+  fastp/bwa/freebayes/mosdepth itself, same as `03_worker.sh` does) —
+  normalize +
   snpEff-annotate a raw freebayes VCF into a per-isolate
   `snps.norm.annot.vcf`: `bcftools view` QUAL filter → `vt normalize` →
   `bcftools annotate` field cleanup → `snpEff ann`. This is the standalone,
@@ -99,7 +115,7 @@ orchestrator never needs to reimplement pipeline logic itself.
   once, downstream, via the mosdepth-based masking `04_generate_variant_vcf.py`
   applies.
 
-- **`bin/04_generate_variant_vcf.py`** (`--help` for full args) — builds the
+- **`bin/04_generate_variant_vcf.py`** (stage 04a; `--help` for full args) — builds the
   **canonical merged multi-sample VCF** from a `bcftools merge
   --missing-to-ref` of every isolate's `+setGT`-masked VCF: drops records
   overlapping a repeat BED, applies a mosdepth-based low-coverage mask, and
@@ -120,14 +136,14 @@ orchestrator never needs to reimplement pipeline logic itself.
   > substituting `bcftools view --print-header` for the merge in that case
   > (a real merge, just of an all-empty input).
 
-- **`bin/04_generate_variant_tables.py`** (`--help` for full args) —
+- **`bin/04_generate_variant_tables.py`** (stage 04b; `--help` for full args) —
   genotype/annotation tables (all variants, SNPs, INDELs, disruptive
   variants) from that canonical VCF, with per-visit allele counts and
   frequencies — see "Variant table semantics" below. Re-runs `snpEff ann`
   internally, so it needs the reference's snpEff config/database available
   (whatever `build_snpeff_db.sh` above produced).
 
-- **`bin/05_generate_snp_alignment.py`** (`--help` for full args) — SNP
+- **`bin/05_generate_snp_alignment.py`** (stage 05; `--help` for full args) — SNP
   alignment FASTA from `04_generate_variant_tables.py`'s `snp.gt.tab` output.
 
 - **`bin/pipeline_helpers.py`** — shared logic (callable-mask building,
